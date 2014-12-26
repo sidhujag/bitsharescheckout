@@ -26,15 +26,7 @@ function verifyOpenOrder($memo)
 	{
 		$demo = TRUE;
 	}
-	$response = btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
-	if(count($response) <= 0)
-	{
-		return array();
-	}
-	else
-	{
-		return json_encode($response);
-	}
+	return btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
 }
 function lookupOrder($memo, $order_id)
 {
@@ -51,15 +43,15 @@ function lookupOrder($memo, $order_id)
 	{
 	  $ret = array();
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Order Hash';
-	  return json_encode($ret);
+	  return $ret;
 	}
 
 	if ($orderArray[0]['order_id'] !== $order_id) {
 		$ret = array();
-		$ret['error'] = 'Invalid Order ID. Could not complete your order';
-		return json_encode($ret);
+		$ret['error'] = 'Invalid Order ID';
+		return $ret;
 	}
-	return json_encode($orderArray[0]);
+	return $orderArray[0];
 }
 function completeOrder($memo, $order_id)
 {
@@ -75,13 +67,13 @@ function completeOrder($memo, $order_id)
 	{
 	  $ret = array();
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Order Hash';
-	  return json_encode($ret);
+	  return $ret;
 	}
 
 	if ($orderArray[0]['order_id'] !== $order_id) {
 		$ret = array();
-		$ret['error'] = 'Invalid Order ID. Could not complete your order';
-		return json_encode($ret);
+		$ret['error'] = 'Invalid Order ID';
+		return $ret;
 	}
 	$demo = FALSE;
 	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
@@ -94,39 +86,35 @@ function completeOrder($memo, $order_id)
 	{
 	  $ret = array();
 	  $ret['error'] = 'Could not verify order. Please try again';
-	  return json_encode($ret);
+	  return $ret;
 	}
-	$response = completeOrderUser($response);
-	if(!isset($response['url']))
-	{
-		return array();
-	}
-	return json_encode($response);
+	return completeOrderUser($response);
 }
 function cancelOrder($memo)
 {
-	global $baseUrl;
+	global $baseURL;
 	$orderArray = getOrder($memo);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['url'] = $baseUrl;
-	  return json_encode($ret);
+	  $ret['url'] = $baseURL;
+	  return $ret;
 	}
 	$response = cancelOrderUser($orderArray[0]);
-	return json_encode($response);
+	return $response;
 }
 function getPaymentURLFromOrder($memo, $balance)
 {
+	global $accountName;
 	$orderArray = getOrder($memo);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Order Hash';
-	  return json_encode($ret);
+	  return $ret;
 	}
 	$order = $orderArray[0];
-	return json_encode(btsCreateInvoice($order['account'], $order['order_id'], $balance, $order['total'], $order['asset'], $order['memo']));
+	return btsCreateInvoice($accountName, $order['order_id'], $balance, $order['total'], $order['asset'], $order['memo']);
 }
 
 function createOrder()
@@ -161,13 +149,8 @@ function cronJob($token)
 	$response   = btsVerifyOpenOrders($openOrderList, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
 	if(array_key_exists('error', $response))
 	{
-		return json_encode($response);
+		return $response;
 	}
-	$response = completeOrderUser($response);
-	if(!isset($response['url']))
-	{
-		return array();
-	}
-	return json_encode($response);
+	return completeOrderUser($response);
 }
 ?>

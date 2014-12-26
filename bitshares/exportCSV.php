@@ -4,6 +4,7 @@ header('Content-Disposition: attachment; filename=exportTransactions.csv');
 require 'systemfunctions.php';
 $memo = $_REQUEST['memo'];
 $response = verifyOpenOrder($memo);
+echo json_encode($response);
 // create a file pointer connected to the output stream
 $output = fopen('php://output', 'w');
 
