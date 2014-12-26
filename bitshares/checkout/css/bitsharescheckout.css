@@ -1,0 +1,435 @@
+.bitshares {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #eaeaea;
+}
+.bitshares [data-animation] {
+  opacity: 0;
+}
+.bitshares ul {
+  list-style-type: none;
+}
+.bitshares h1,
+.bitshares h2,
+.bitshares h3,
+.bitshares h4,
+.bitshares h5,
+.bitshares h6 {
+  font-weight: 400;
+}
+.bitshares h1 {
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+.bitshares a:hover {
+  text-decoration: none;
+}
+.bitshares .btn {
+  border-radius: 0;
+}
+.bitshares .btn:active {
+  box-shadow: none;
+  border-radius: 0px!important;
+}
+.bitshares .btn:focus {
+  outline: thin dotted #FFFFFF;
+  outline-offset: 0;
+}
+.bitshares .btn:hover,
+.bitshares .btn:focus {
+  color: #fff;
+}
+.bitshares .form-control:focus {
+  border-color: #00365F;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 54, 95, 0.6);
+  -webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 54, 95, 0.6);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: border-color 0.2s, box-shadow 0.2s;
+}
+.bitshares .wrap {
+  width: 100%;
+}
+.bitshares .bitshareslogo 
+{
+	background-image:url("../img/bitsharescheckout.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	height:71px;
+}
+.bitshares .top-buffer {
+  margin-top: 20px;
+}
+.bitshares.signin-main {
+  background-color: #eaeaea;
+}
+.bitshares.signin-main .title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #00365F;
+}
+.bitshares.signin-main .title h1 {
+  font-size: 40pt;
+}
+.bitshares.signin-main .wrap {
+  padding-top: 20px;
+}
+.bitshares.signin-main .form-wrap {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 400px;
+}
+.bitshares.signin-main .form-header {
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  background-color: #ffffff;
+}
+.bitshares.signin-main .form-header .fa-robo {
+  font-size: 50px;
+  color: #ffffff;
+  border-radius: 50%;
+  border: 3px solid #E7E7E7;
+  padding: 15px 20px;
+  background: #f6f8f9;
+  width:100px;
+  height:100px;
+  background-image: url('../img/robohash.png');
+	background-image: url('../img/robohash.png'), -webkit-gradient(linear, left top, right bottom, color-stop(0%, #f6f8f9), color-stop(50%, #e5ebee), color-stop(51%, #d7dee3), color-stop(100%, #f5f7f9)); /* Saf4+, Chrome */
+	background-image: url('../img/robohash.png'), -webkit-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Chrome 10+, Saf5.1+ */
+	background-image: url('../img/robohash.png'),    -moz-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* FF3.6+ */
+	background-image: url('../img/robohash.png'),     -ms-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* IE10 */
+	background-image: url('../img/robohash.png'),      -o-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Opera 11.10+ */
+	background-image: url('../img/robohash.png'),         linear-gradient(135deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* W3C */  
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f8f9', endColorstr='#f5f7f9', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+
+}
+.bitshares.signin-main .fa-shopping-cart.fail,
+.bitshares.signin-main .fa-check.fail 
+{
+	color: Red !important;
+}
+.bitshares.signin-main .form-header .fa-robo.fail {
+  color: #FF8479;
+  border: 3px solid #FF8479;
+  -webkit-transition: color 200ms linear;
+  -moz-transition: color 200ms linear;
+  -o-transition: color 200ms linear;
+  -ms-transition: color 200ms linear;
+  transition: color 200ms linear;
+}
+.bitshares.signin-main .fa-shopping-cart.success,
+.bitshares.signin-main .fa-check.success 
+{
+	color: #98CA4D !important;
+}
+.bitshares.signin-main .form-header .fa-robo.success {
+  color: #98CA4D;
+  border: 3px solid #98CA4D;
+  -webkit-transition: color 700ms linear;
+  -moz-transition: color 700ms linear;
+  -o-transition: color 700ms linear;
+  -ms-transition: color 700ms linear;
+  transition: color 700ms linear;
+}
+.bitshares.signin-main .form-main {
+  background-color: #00AEEF;
+  padding: 25px 25px;
+}
+.bitshares.signin-main .form-footer {
+  background-color: #00365F;
+  padding: 15px 15px;
+}
+.bitshares.signin-main .form-footer a {
+  color: #999999;
+  font-size: 10pt;
+}
+.bitshares.signin-main .form-footer a:hover {
+  text-decoration: none;
+}
+.bitshares.signin-main .form-footer .fa-question,
+.bitshares.signin-main .form-footer .fa-shopping-cart {
+  font-size: 10pt;
+  color: #00365F;
+  border-radius: 50%;
+  background-color: #00AEEF;
+  padding: 5px 8px;
+  margin-right: 7px;
+}
+.bitshares.signin-main .form-footer .fa-refresh,
+.bitshares.signin-main .form-footer .fa-times,
+.bitshares.signin-main .form-footer .fa-check {
+  font-size: 10pt;
+  color: #00FF00;
+  border-radius: 50%;
+  background-color: #00AEEF;
+  padding: 5px;
+  margin-right: 7px;
+}
+.bitshares.signin-main .form-footer .fa-times 
+{
+	color: Red !important;
+}
+.bitshares.signin-main .form-footer .fa-question,
+.bitshares.signin-main .form-footer .fa-refresh 
+{
+	color: #00365F !important;
+}
+
+.bitshares.signin-main .signin {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #FF8627;
+  color: #ffffff;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+.bitshares.signin-main .signin:hover {
+  background-color: #ff6610;
+}
+.bitshares.signin-main input[type="text"],
+.bitshares.signin-main input[type="number"],
+.bitshares.signin-main input[type="password"] {
+  background-color: #00365F;
+  padding-left: 20px;
+  border-radius: 0;
+  border: none;
+  color: #cccccc;
+  height: 43px;
+}
+.bitshares.signin-main .bounceIn {
+  opacity: 1;
+}
+.bitshares.signin-main .fail {
+  animation: shake .5s linear;
+  -webkit-animation: shake .5s linear;
+  -moz-animation: shake .5s linear;
+}
+.bitshares.signin-main .shake {
+  animation: shake .5s linear 5;
+  -webkit-animation: shake .5s linear 5;
+  -moz-animation: shake .5s linear 5;
+}
+@media (max-width: 991px) {
+  .bitshares.signin-main .wrap {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media (max-width: 767px) {
+  .bitshares.signin-main .form-main {
+    padding: 15px 15px;
+  }
+  .bitshares.signin-main .form-footer {
+    padding: 15px 30px;
+  }
+}
+
+/* embeded animation */
+@keyframes shake {
+  8%,
+  41% {
+    transform: translateX(-10px);
+  }
+  25%,
+  58% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  92% {
+    transform: translateX(5px);
+  }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes shake {
+  8%,
+  41% {
+    -webkit-transform: translateX(-10px);
+  }
+  25%,
+  58% {
+    -webkit-transform: translateX(10px);
+  }
+  75% {
+    -webkit-transform: translateX(-5px);
+  }
+  92% {
+    -webkit-transform: translateX(5px);
+  }
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@-moz-keyframes shake {
+  8%,
+  41% {
+    -moz-transform: translateX(-10px);
+  }
+  25%,
+  58% {
+    -moz-transform: translateX(10px);
+  }
+  75% {
+    -moz-transform: translateX(-5px);
+  }
+  92% {
+    -moz-transform: translateX(5px);
+  }
+  0%,
+  100% {
+    -moz-transform: translateX(0);
+  }
+}
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+@-moz-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -moz-transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+  }
+}
+@-o-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -o-transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    -o-transform: translateX(0);
+  }
+}
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+  -moz-animation-name: fadeInLeft;
+  -o-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+}
+/* preview navigation menu */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+nav ul,
+nav ol,
+nav li {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+input[type='submit'] {
+  -webkit-appearance: none;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+.section-content {
+  overflow: hidden;
+  background-color: #eaeaea;
+}
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -30px;
+  /* Pad bottom by footer height */
+  padding: 0 0 30px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 30px;
+  background-color: white;
+}
+#social:hover {
+    			-webkit-transform:scale(1.1); 
+-moz-transform:scale(1.1); 
+-o-transform:scale(1.1); 
+-ms-transform:scale(1.1); 
+transform:scale(1.1); 
+			}
+			#social {
+				-webkit-transform:scale(0.8);
+                /* Browser Variations: */
+-moz-transform:scale(0.8);
+-o-transform:scale(0.8); 
+-ms-transform:scale(0.8);
+transform:scale(0.8); 
+-webkit-transition-duration: 0.5s; 
+-moz-transition-duration: 0.5s;
+-o-transition-duration: 0.5s;
+-ms-transition-duration: 0.5s;
+transition-duration: 0.5s;
+			}           
+/* 
+    Only Needed in Multi-Coloured Variation 
+                                               */
+			.social-fb:hover {
+				color: #3B5998;
+			}
+			.social-tw:hover {
+				color: #4099FF;
+			}
+			.social-gp:hover {
+				color: #d34836;
+			}
+			.social-em:hover {
+				color: #f39c12;
+			}
+
+
