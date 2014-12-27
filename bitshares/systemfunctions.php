@@ -80,7 +80,7 @@ function getPaymentURLFromOrder($memo, $order_id, $balance)
 	}
 	$order = $orderArray[0];
 	$ret = array();
-	$ret['url'] = btsCreatePaymentURL($accountName, $order['order_id'], $balance, $order['asset'], $order['memo']);
+	$ret['url'] = btsCreatePaymentURL($accountName, $balance, $order['asset'], $memo);
 	return $ret;
 }
 
