@@ -3,10 +3,10 @@ echo 'Redirecting to Bitshares payment gateway...'.PHP_EOL;
 require 'systemfunctions.php';
 
 $response = createOrder();
-if(isset($response['account']))
+if(isset($response['accountName']))
 {
 	$post = array(
-		'accountName'     => $response['account'],
+		'accountName'     => $response['accountName'],
 		'orderId'     => $response['order_id'],
 		'memo'     => $response['memo']
 	);
@@ -14,7 +14,7 @@ if(isset($response['account']))
 	$rbimg = 'checkout/img/robohash.png';
 	if(!file_exists($img))
 	{
-	  $rbUrl = 'http://robohash.org/'.$response['account'].'?size=100x100';
+	  $rbUrl = 'http://robohash.org/'.$response['accountName'].'?size=100x100';
 	  file_put_contents($rbimg, file_get_contents($rbUrl));
 	}    
 

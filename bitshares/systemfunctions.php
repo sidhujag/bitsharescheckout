@@ -59,7 +59,14 @@ function completeOrder($memo, $order_id)
 }
 function cancelOrder($memo, $order_id)
 {
-	return cancelOrderUser($memo, $order_id);
+	global $baseURL;
+	$response = cancelOrderUser($memo, $order_id);
+	if(array_key_exists('error', $response))
+	{	
+		$response['url'] = $baseURL;	
+		return $response;
+	}	
+	return $response;
 }
 function getPaymentURLFromOrder($memo, $order_id, $balance)
 {
@@ -72,7 +79,9 @@ function getPaymentURLFromOrder($memo, $order_id, $balance)
 	  return $ret;
 	}
 	$order = $orderArray[0];
-	return btsCreateInvoice($accountName, $order['order_id'], $balance, $order['total'], $order['asset'], $order['memo']);
+	$ret = array();
+	$ret['url'] = btsCreatePaymentURL($accountName, $order['order_id'], $balance, $order['asset'], $order['memo']);
+	return $ret;
 }
 
 function createOrder()

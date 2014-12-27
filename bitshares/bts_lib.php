@@ -114,16 +114,9 @@ function btsCreateEHASH($account,$orderId, $price, $asset, $salt)
  *
  * @return array
  */
-function btsCreateInvoice($account, $orderId, $amount, $price, $asset, $memo)
+function btsCreateInvoice($account, $orderId, $memo)
 {
-  
-	$response = array('url' => btsCreatePaymentURL($account, $amount, $asset, $memo));
-  $response['memo'] = $memo;
-  $response['account'] = $account;
-  $response['amount'] = $amount;
-  $response['total'] = $price;
-  $response['asset'] = $asset;
-	return $response;
+  return 'bitshares/checkout/index.html?accountName='.$account.'&orderId='.$orderId.'&memo='.$memo;
 }
 function btsGetAssetNameById($assetId, $rpcUser, $rpcPass, $rpcPort)
 {
@@ -244,7 +237,7 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
           else
           {
             $ret['status'] = 'processing';
-            $ret['url'] = btsCreatePaymentURL($account,($priceToPay-$amount),$asset,$orderEHASH);
+            $ret['url'] = btsCreateInvoice($account,$asset,$orderEHASH);
           }
         
           array_push($retArray, $ret);
