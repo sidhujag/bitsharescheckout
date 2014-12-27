@@ -3,8 +3,8 @@ header('Content-Type: text/csv; charset=utf-8');
 header('Content-Disposition: attachment; filename=exportTransactions.csv');
 require 'systemfunctions.php';
 $memo = $_REQUEST['memo'];
-$response = verifyOpenOrder($memo);
-echo json_encode($response);
+$order_id = $_REQUEST['order_id'];
+$response = verifyOpenOrder($memo, $order_id);
 // create a file pointer connected to the output stream
 $output = fopen('php://output', 'w');
 

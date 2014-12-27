@@ -6,7 +6,7 @@ function debuglog($contents)
 {
 	error_log($contents);
 }
-function verifyOpenOrder($memo)
+function verifyOpenOrder($memo, $order_id)
 {
 	global $accountName;
 	global $rpcUser;
@@ -14,7 +14,7 @@ function verifyOpenOrder($memo)
 	global $rpcPort;
 	global $demoMode;
 	global $hashSalt;
-	$orderArray = getOrder($memo);
+	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
@@ -30,7 +30,7 @@ function verifyOpenOrder($memo)
 }
 function lookupOrder($memo, $order_id)
 {
-	$orderCompleteArray = getOrderComplete($memo);
+	$orderCompleteArray = getOrderComplete($memo, $order_id);
 	if(count($orderCompleteArray) > 0)
 	{
 	  $ret = array();
@@ -38,7 +38,7 @@ function lookupOrder($memo, $order_id)
 	  return $ret;
 	}
 
-	$orderArray = getOrder($memo);
+	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
@@ -55,58 +55,16 @@ function lookupOrder($memo, $order_id)
 }
 function completeOrder($memo, $order_id)
 {
-	global $relayUrl;
-	global $accountName;
-	global $rpcUser;
-	global $rpcPass;
-	global $rpcPort;
-	global $demoMode;
-	global $hashSalt;
-	$orderArray = getOrder($memo);
-	if(count($orderArray) <= 0)
-	{
-	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Order Hash';
-	  return $ret;
-	}
-
-	if ($orderArray[0]['order_id'] !== $order_id) {
-		$ret = array();
-		$ret['error'] = 'Invalid Order ID';
-		return $ret;
-	}
-	$demo = FALSE;
-	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
-	{
-		$demo = TRUE;
-	}
-	$response = btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
-
-	if(array_key_exists('error', $response))
-	{
-	  $ret = array();
-	  $ret['error'] = 'Could not verify order. Please try again';
-	  return $ret;
-	}
-	return completeOrderUser($response);
+	return completeOrderUser($memo, $order_id);
 }
-function cancelOrder($memo)
+function cancelOrder($memo, $order_id)
 {
-	global $baseURL;
-	$orderArray = getOrder($memo);
-	if(count($orderArray) <= 0)
-	{
-	  $ret = array();
-	  $ret['url'] = $baseURL;
-	  return $ret;
-	}
-	$response = cancelOrderUser($orderArray[0]);
-	return $response;
+	return cancelOrderUser($memo, $order_id);
 }
-function getPaymentURLFromOrder($memo, $balance)
+function getPaymentURLFromOrder($memo, $order_id, $balance)
 {
 	global $accountName;
-	$orderArray = getOrder($memo);
+	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
@@ -123,34 +81,13 @@ function createOrder()
 }
 function cronJob($token)
 {
-	global $relayUrl;
-	global $accountName;
-	global $rpcUser;
-	global $rpcPass;
-	global $rpcPort;
-	global $demoMode;
-	global $hashSalt;
+
 	global $cronToken;
 	if($token !== $cronToken)
 	{
 		return 'Invalid cronjob token!';
 	}
-	$openOrderList = getOpenOrders();
-	if(count($openOrderList) <= 0)
-	{
-	  return 'No open orders found!';
-	}
-
-	$demo = FALSE;
-	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
-	{
-		$demo = TRUE;
-	}
-	$response   = btsVerifyOpenOrders($openOrderList, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
-	if(array_key_exists('error', $response))
-	{
-		return $response;
-	}
-	return completeOrderUser($response);
+	
+	return cronJobUser();
 }
 ?>
