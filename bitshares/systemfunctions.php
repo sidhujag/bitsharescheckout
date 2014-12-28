@@ -28,6 +28,27 @@ function verifyOpenOrder($memo, $order_id)
 	}
 	return btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
 }
+function getOrderComplete($memo, $order_id)
+{	
+  $orders = array();
+  $myorder = isOrderComplete($memo, $order_id);
+  if($myorder !== FALSE)
+  {
+    array_push($orders, $myorder);
+  }
+  return $orders;
+}
+
+function getOrder($memo, $order_id)
+{
+  $orders = array();
+  $myorder = doesOrderExist($memo, $order_id);
+  if($myorder !== FALSE)
+  {
+    array_push($orders, $myorder);
+  }
+  return $orders;
+}
 function lookupOrder($memo, $order_id)
 {
 	$orderCompleteArray = getOrderComplete($memo, $order_id);

@@ -167,7 +167,7 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
       $asset = $order['asset'];
       $orderTime = $order['date_added'];
       $timeStamp = 0;
-      $trxId = 0;
+      $trx_id = 0;
       $orderEHASH = btsCreateEHASH($account, $orderId, $priceToPay, $asset, $hashSalt);
       $openOrderMemo = btsCreateMemo($orderEHASH);
       $accumulatedAmountPaid = 0;
@@ -184,8 +184,8 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
         // also make sure this tx is confirmed on the blockchain before processing it
         if($txinfo['is_confirmed'] === true)
         {
-	        $timeStamp = $txinfo['timestamp'];
-          $trxId = $txinfo['trx_id'];
+	      $timeStamp = $txinfo['timestamp'];
+          $trx_id = $txinfo['trx_id'];
           foreach($txinfo['ledger_entries'] as $tx) {
 	
 	          //$txTime = strtotime($tx['timestamp']);
@@ -223,7 +223,7 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
           $ret['total'] = $priceToPay;
           $ret['hash'] = $orderEHASH;
           $ret['memo'] = btsCreateMemo($orderEHASH);
-          $ret['trx_id'] = $trxId;
+          $ret['trx_id'] = $trx_id;
           // payment within 5 units of the price, ie: price = 5 BitUSD, overpayment is when 11 BitUSD is received or more.
           if($accumulatedAmountPaid > ($priceToPay+5.0))
           {
