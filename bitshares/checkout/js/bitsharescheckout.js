@@ -13,11 +13,11 @@
     }
     $( document ).ready(function() {
         var accountName = GetURLParameter('accountName');
-        var orderid = GetURLParameter('orderId');
+        var order_id = GetURLParameter('order_id');
         var memo= GetURLParameter('memo');
         $('#accountName').val(accountName);
         $('#accountNameDisplay').text(accountName);
-        $('#order_id').val(orderid);
+        $('#order_id').val(order_id);
         $('#memo').val(memo);
         var subject = "Bitshares payment URL for order "+memo;
         var url = encodeURIComponent(window.location.href);
@@ -50,7 +50,7 @@
     }
    
     function btsExportPaymentTableToCSV() {
-            window.location.href = '../exportCSV.php?memo='+$('#memo').val();
+            window.location.href = '../exportCSV.php?memo='+$('#memo').val()+'&order_id='+$('#order_id').val();
     }    
     var btsShowPaymentStatus = function()
     {

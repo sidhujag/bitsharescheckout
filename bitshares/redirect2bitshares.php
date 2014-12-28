@@ -7,7 +7,7 @@ if(isset($response['accountName']))
 {
 	$post = array(
 		'accountName'     => $response['accountName'],
-		'orderId'     => $response['order_id'],
+		'order_id'     => $response['order_id'],
 		'memo'     => $response['memo']
 	);
 

@@ -5,6 +5,7 @@ require 'systemfunctions.php';
 $memo = $_REQUEST['memo'];
 $order_id = $_REQUEST['order_id'];
 $response = verifyOpenOrder($memo, $order_id);
+
 // create a file pointer connected to the output stream
 $output = fopen('php://output', 'w');
 

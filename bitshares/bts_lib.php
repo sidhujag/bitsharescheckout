@@ -83,9 +83,9 @@ function btsCurl($url, $post, $rpcUser, $rpcPass, $rpcPort)
 	curl_close($curl);
 	return $response;
 }
-function btsCreateEHASH($account,$orderId, $price, $asset, $salt)
+function btsCreateEHASH($account,$order_id, $price, $asset, $salt)
 {
-  $string = $account.$orderId.$price.$asset.$salt;
+  $string = $account.$order_id.$price.$asset.$salt;
   return substr(md5($string), 0, 12);
 }
 
@@ -114,9 +114,9 @@ function btsCreateEHASH($account,$orderId, $price, $asset, $salt)
  *
  * @return array
  */
-function btsCreateInvoice($account, $orderId, $memo)
+function btsCreateInvoice($account, $order_id, $memo)
 {
-  return 'bitshares/checkout/index.html?accountName='.$account.'&orderId='.$orderId.'&memo='.$memo;
+  return 'bitshares/checkout/index.html?accountName='.$account.'&order_id='.$order_id.'&memo='.$memo;
 }
 function btsGetAssetNameById($assetId, $rpcUser, $rpcPass, $rpcPort)
 {
@@ -162,13 +162,13 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
     return $response;
    }
     foreach ($orderList as $order) {
-      $orderId = $order['order_id'];
+      $order_id = $order['order_id'];
       $priceToPay = $order['total'];
       $asset = $order['asset'];
       $orderTime = $order['date_added'];
       $timeStamp = 0;
       $trx_id = 0;
-      $orderEHASH = btsCreateEHASH($account, $orderId, $priceToPay, $asset, $hashSalt);
+      $orderEHASH = btsCreateEHASH($account, $order_id, $priceToPay, $asset, $hashSalt);
       $openOrderMemo = btsCreateMemo($orderEHASH);
       $accumulatedAmountPaid = 0;
       
@@ -217,7 +217,7 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
         {
 	        $ret = array();
     	
-          $ret['order_id'] = $orderId;
+          $ret['order_id'] = $order_id;
           $ret['asset'] = $asset;
           $ret['amount'] = $amount;
           $ret['total'] = $priceToPay;
