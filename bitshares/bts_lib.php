@@ -127,8 +127,8 @@ function btsGetAssetNameById($assetId, $rpcUser, $rpcPass, $rpcPort)
   {
 
 	return "";
-  }
-  return $response['result']['symbol'];
+  } 
+  return $response['result'];
 }
 function btsCreateMemo($hash)
 {
@@ -191,13 +191,14 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
 	          //$txTime = strtotime($tx['timestamp']);
             // echo 'time: ' . $txTime;	
             $toaccount = $tx['to_account'];
-	
-	          $txSymbol = btsGetAssetNameById($tx['amount']['asset_id'], $rpcUser, $rpcPass, $rpcPort);
+			$txAsset = btsGetAssetNameById($tx['amount']['asset_id'], $rpcUser, $rpcPass, $rpcPort);
+	        $txSymbol = $txAsset['symbol'];
+	        $txPrecision = $txAsset['precision'];
             $memo = $tx['memo'];
-	          if($txSymbol != $asset && !$demoMode)
-		        {
-			        continue;
-		        }
+	        if($txSymbol != $asset && !$demoMode)
+		    {
+				continue;
+		    }
             // sanity check, tx to account should match your configured account in admin settings
             if($toaccount != $account)
             {
@@ -208,7 +209,7 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
             {
               continue;
             }
-            $amount += ($tx['amount']['amount']/100000);
+            $amount += ($tx['amount']['amount']/$txPrecision);
             
           }
           $accumulatedAmountPaid += $amount;
