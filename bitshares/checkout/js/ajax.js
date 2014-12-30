@@ -235,7 +235,7 @@
                     text: res,
                     type: 'error'
                 });
-                clearInterval(globalPaymentTimer);               
+                            
             },                              
             success: function(response, textStatus, jqXHR) {
                 var textresponse = "Payment recieved...";
