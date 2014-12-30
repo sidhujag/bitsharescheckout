@@ -11,7 +11,7 @@
             }
         }
     }
-    $( document ).ready(function() {
+    $( document ).ready(function() {      
         var accountName = GetURLParameter('accountName');
         var order_id = GetURLParameter('order_id');
         var memo= GetURLParameter('memo');
@@ -19,12 +19,15 @@
         $('#accountNameDisplay').text(accountName);
         $('#order_id').val(order_id);
         $('#memo').val(memo);
+        $('#payTo').val(accountName);
         var subject = "Bitshares payment URL for order "+memo;
         var url = encodeURIComponent(window.location.href);
         $('#socialMail').attr('href', "mailto:?subject="+subject+"&body="+url);
         $('#socialGoogle').attr('href', "https://plus.google.com/share?url="+url );
         $('#socialFacebook').attr('href', "http://www.facebook.com/sharer.php?m2w&s=100&p[url]="+url+"&p[images][0]=http://bitshares.org/wp-content/uploads/2014/11/bts-logo-white.png&p[title]=Bitshares payment gateway&p[summary]="+subject);
         $('#socialTwitter').attr('href', "http://twitter.com/intent/tweet?source=sharethiscom&text="+subject+"&url="+url );
+        ajaxLookup($('#btsForm').serialize());
+       
     }); 
     function btsShowSuccess()
     {
@@ -43,20 +46,20 @@
             
         }, 1000); 
     }   
-    function btsShowPaymentComplete()
+    function btsPaymentComplete()
     {
         globalPaid = true;
         btsShowSuccess();
     }
    
     function btsExportPaymentTableToCSV() {
-            window.location.href = '../exportCSV.php?memo='+$('#memo').val()+'&order_id='+$('#order_id').val();
+        window.location.href = '../exportCSV.php?memo='+$('#memo').val()+'&order_id='+$('#order_id').val();
     }    
     var btsShowPaymentStatus = function()
     {
-        globalPaymentDialog.options.title = 'Payment Status - ' + $("#memo").val();
-        globalPaymentDialog.open();
-        
+        $('#exportCSV').removeClass('invisible');
+        $('#paymentStatus').removeClass('hidden');
+        btsStartPaymentTracker($('#btsForm').serialize()); 
     }
     
     var btsUpdateOnChange = function()
@@ -68,44 +71,48 @@
         }    
         btsUpdateUIScanClear();    
     }    
-
-    $("input[type='text'], input[type='number']" ).change(function(e) {
-      btsUpdateOnChange();
-    });     
-        
+      
     var btsPayClick = function() {
                 
         if(globalPaid)
         {
             BootstrapDialog.danger('This order has already been paid for!');
-        }    
+        }
+        else if(globalAmountReceived > 0)
+        { 
+     
+            BootstrapDialog.confirm('There are partial payment(s) on this order. Would you like to pay the remaining balance of ' + $("#paymentBalance").text() + '?', function(result){
+                if(result) {
+                    ajaxPay($('#btsForm').serialize());
+                }else {  
+                }
+            });         
+        }                  
         else
         {
             ajaxPay($('#btsForm').serialize());
         }    
 
     }  
-      
-    var btsScanClick = function () {
-        if(globalScanInProgress)
-        {
-            if(globalPaymentTimer)
-                clearInterval(globalPaymentTimer);
-            btsUpdateUIScanCancelled();            
-        }
-        else
-        {
-            
-            btsStartPaymentTracker($('#btsForm').serialize(), PaymentScanEnum.FULLSCAN);
-        }
-    }
-    	
+    $("input[type='text'], input[type='number']" ).change(function(e) {
+      btsUpdateOnChange();
+    });           
+    $('#exportCSV').click(function (e) {
+        if (e.preventDefault) { e.preventDefault(); } else { e.returnValue = false; }
+        btsExportPaymentTableToCSV();
+    });    	
     $('#btsForm').submit(function(e) {
         if (e.preventDefault) { e.preventDefault(); } else { e.returnValue = false; } 
              
-        ajaxLookup($('#btsForm').serialize());
+        btsPayClick();
 
-    });	    
+    });
+    
+    $('#paymentStatus').click(function (e) {
+        if (e.preventDefault) { e.preventDefault(); } else { e.returnValue = false; }
+        btsShowPaymentStatus();
+    }); 	   
+     
     $('#return').click(function (e) { 
         if (e.preventDefault) { e.preventDefault(); } else { e.returnValue = false; }       
       
@@ -126,33 +133,16 @@
           
 		
 	});        
-    function btsStartPaymentTracker(serializedData, scanMode)
+    function btsStartPaymentTracker(serializedData)
     {
         if(globalScanInProgress)
             return;
-        if(scanMode == PaymentScanEnum.QUICKSCAN)
-        {
-            var progressToUpdate = 100;
-            ajaxScanChain(serializedData, progressToUpdate, scanMode);
-            
-        }
-        else if(scanMode == PaymentScanEnum.FULLSCAN)
-        {
-            var count = 0;
-            btsUpdateUIFullScan();
-                
-            if(globalPaymentTimer)
-                clearInterval(globalPaymentTimer);
-            globalPaymentTimer = setInterval(function() {
-                count++;
-                var progressToUpdate = 20+parseInt(80 * parseFloat(count / 18));
-                ajaxScanChain(serializedData, progressToUpdate);
-                // run for about 3 minutes
-                if(count >= 18)
-                {
-                    clearInterval(globalPaymentTimer);
-                    btsUpdateUIScanComplete();
-                }    
-            }, 10000); 
-        }                   
-    }
+        btsUpdateUIScan();      
+        if(globalPaymentTimer)
+            clearInterval(globalPaymentTimer);
+        ajaxScanChain(serializedData);    
+        globalPaymentTimer = setInterval(function() {
+            ajaxScanChain(serializedData);  
+        }, 10000); 
+    }                   
+    

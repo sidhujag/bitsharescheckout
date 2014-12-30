@@ -1,16 +1,16 @@
     function ajaxLookup(serializedData)
     {
-        
         $.ajax({
             url: "callbacks/callback_lookup.php",
             type: 'post',
             dataType: 'json',
+            timeout: 15000,
             data: serializedData,
             beforeSend:function(){ 
-                globalLoadingDialog.open();
             },
             complete:function(){
-                globalLoadingDialog.close();
+                globalInitDialog.close();
+                $("#payNow").focus();
             },   
             error:function(jqXHR, textStatus, errorThrown){
                 var res = textStatus;
@@ -39,12 +39,10 @@
                     {
                         if(globalTotal == 0 && globalAsset === "")
                         {
-                            $('#balance').val(response.total);
                             globalTotal = response.total;
                             globalAsset = response.asset;
-                        }
-
-                        btsShowPaymentStatus();                                 
+                            $('#amount').val(globalTotal + " " + globalAsset);
+                        }                          
                     }
 			    }
 			    else
@@ -62,6 +60,7 @@
             url: "callbacks/callback_pay.php",
             type: 'post',
             dataType: 'json',
+            timeout: 15000,
             data: serializedData,
             beforeSend:function(){ 
                 globalLoadingDialog.open();
@@ -102,7 +101,8 @@
                             type: 'success',
                         });
                         window.location.href =  response.url;
-			            btsStartPaymentTracker(serializedData, PaymentScanEnum.FULLSCAN);                                   
+			            btsStartPaymentTracker(serializedData);
+			            btsShowPaymentStatus();                                  
                     }
 
 			    }
@@ -120,6 +120,7 @@
             url: myurl,
             type: 'post',
             dataType: 'json',
+            timeout: 15000,
             data: serializedData,
             beforeSend:function(){
                 globalLoadingDialog.open();
@@ -163,6 +164,7 @@
         $.ajax({
             url: myurl,
             type: 'post',
+            timeout: 15000,
             dataType: 'json',
             data: serializedData,
             beforeSend:function(){
@@ -209,20 +211,16 @@
             }
         });     
     }
-    function ajaxScanChain(serializedData, progressToUpdate, scanMode)
-    {
-        if(progressToUpdate < 20)
-            progressToUpdate = 20;
-        if(progressToUpdate > 100)
-            progressToUpdate = 100;    
+    function ajaxScanChain(serializedData)
+    { 
         $.ajax({
             url: "callbacks/callback_verifysingleorder.php",
             type: 'post',
+            timeout: 15000,
             dataType: 'json',
             data: serializedData,
             beforeSend:function(){
-                if(scanMode == PaymentScanEnum.QUICKSCAN)
-                    btsUpdateUIQuickScan();            
+         
             },
             complete:function(){
       
@@ -254,7 +252,6 @@
                 }
                 else 
                 {
-                    btsUpdateUIScanProgress(progressToUpdate);
                     if(response.length > 0)
                     {       
                         $("#paymentStatusTable tbody").empty(); 
@@ -283,33 +280,29 @@
                             )    
                             .append($('<td>')
                                 .append($('<a>')
+                                    .attr('class', 'trxLink')
                                     .attr('href', 'bts:Trx/' + response[i].trx_id)
                                     .text(response[i].trx_id.substr(0,10) + "...")
                                 )
                             )
-                             .append($('<td>')
-                                .text(response[i].order_id)
-                            )   
-
                              .append($('<td>')
                                 .attr('class', 'text-right')
                                 .text(parseFloat(response[i].amount).toFixed(2) + " " + response[i].asset)
                             )                                                                                             
                         );
                     }
+                   $('a.trxLink').click(function(e) {
+                        if (e.preventDefault) { e.preventDefault(); } else { e.returnValue = false; }
+                        window.location.href = $(this).attr("href");
+                    });      
                     if(totalAmountReceived > 0)
                     {
                         globalAmountReceived = totalAmountReceived;
-                        var newbalance = globalTotal - totalAmountReceived;
-                        if(newbalance < 0)
-                            newbalance = 0;
-                        $('#balance').val(newbalance);
-                    }
-                    if(scanMode == PaymentScanEnum.QUICKSCAN)
-                        btsUpdateUIScanComplete();                     
+
+                    }                  
                     if(complete)
                     {
-                        setTimeout(function(){ btsShowPaymentComplete(); }, 5000); 
+                        setTimeout(function(){ btsPaymentComplete(); }, 5000); 
                         clearInterval(globalPaymentTimer);
                         btsUpdateUIFullPayment();  
                     }
@@ -322,14 +315,3 @@
         });
  
     }
-    
-       
-  
-
-
-
-
-
-    
-
-

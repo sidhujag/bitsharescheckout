@@ -1,6 +1,17 @@
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
 .bitshares {
   font-family: 'Open Sans', sans-serif;
   background-color: #eaeaea;
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -50px;
+  /* Pad bottom by footer height */
+  padding: 0 0 50px;  
 }
 .bitshares [data-animation] {
   opacity: 0;
@@ -58,35 +69,35 @@
 .bitshares .top-buffer {
   margin-top: 20px;
 }
-.bitshares.signin-main {
+.bitshares {
   background-color: #eaeaea;
 }
-.bitshares.signin-main .title {
+.bitshares .title {
   text-align: center;
   margin-bottom: 30px;
   color: #00365F;
 }
-.bitshares.signin-main .title h1 {
+.bitshares .title h1 {
   font-size: 40pt;
 }
-.bitshares.signin-main .wrap {
+.bitshares .wrap {
   padding-top: 20px;
 }
-.bitshares.signin-main .form-wrap {
+.bitshares .form-wrap {
   width: 100%;
   margin: 0 auto;
   max-width: 400px;
 }
-.bitshares.signin-main .form-header {
+.bitshares .form-header {
   padding: 10px 0;
   text-align: center;
   border-radius: 10px 10px 0 0;
   background-color: #ffffff;
 }
-.bitshares.signin-main .form-header .fa-robo {
+.bitshares .form-header .fa-robo {
   font-size: 50px;
   color: #ffffff;
-  border-radius: 50%;
+  border-radius: 5%;
   border: 3px solid #E7E7E7;
   padding: 15px 20px;
   background: #f6f8f9;
@@ -104,12 +115,12 @@
   /* IE6-9 fallback on horizontal gradient */
 
 }
-.bitshares.signin-main .fa-shopping-cart.fail,
-.bitshares.signin-main .fa-check.fail 
+.bitshares .fa-shopping-cart.fail,
+.bitshares .fa-check.fail 
 {
 	color: Red !important;
 }
-.bitshares.signin-main .form-header .fa-robo.fail {
+.bitshares .form-header .fa-robo.fail {
   color: #FF8479;
   border: 3px solid #FF8479;
   -webkit-transition: color 200ms linear;
@@ -118,12 +129,12 @@
   -ms-transition: color 200ms linear;
   transition: color 200ms linear;
 }
-.bitshares.signin-main .fa-shopping-cart.success,
-.bitshares.signin-main .fa-check.success 
+.bitshares .fa-shopping-cart.success,
+.bitshares .fa-check.success 
 {
 	color: #98CA4D !important;
 }
-.bitshares.signin-main .form-header .fa-robo.success {
+.bitshares .form-header .fa-robo.success {
   color: #98CA4D;
   border: 3px solid #98CA4D;
   -webkit-transition: color 700ms linear;
@@ -132,23 +143,23 @@
   -ms-transition: color 700ms linear;
   transition: color 700ms linear;
 }
-.bitshares.signin-main .form-main {
+.bitshares .form-main {
   background-color: #00AEEF;
   padding: 25px 25px;
 }
-.bitshares.signin-main .form-footer {
+.bitshares .form-footer {
   background-color: #00365F;
   padding: 15px 15px;
 }
-.bitshares.signin-main .form-footer a {
+.bitshares .form-footer a {
   color: #999999;
   font-size: 10pt;
 }
-.bitshares.signin-main .form-footer a:hover {
+.bitshares .form-footer a:hover {
   text-decoration: none;
 }
-.bitshares.signin-main .form-footer .fa-question,
-.bitshares.signin-main .form-footer .fa-shopping-cart {
+.bitshares .form-footer .fa-question,
+.bitshares .form-footer .fa-shopping-cart {
   font-size: 10pt;
   color: #00365F;
   border-radius: 50%;
@@ -156,9 +167,9 @@
   padding: 5px 8px;
   margin-right: 7px;
 }
-.bitshares.signin-main .form-footer .fa-refresh,
-.bitshares.signin-main .form-footer .fa-times,
-.bitshares.signin-main .form-footer .fa-check {
+.bitshares .form-footer .fa-gear,
+.bitshares .form-footer .fa-times,
+.bitshares .form-footer .fa-check {
   font-size: 10pt;
   color: #00FF00;
   border-radius: 50%;
@@ -166,33 +177,19 @@
   padding: 5px;
   margin-right: 7px;
 }
-.bitshares.signin-main .form-footer .fa-times 
+.bitshares .form-footer .fa-times 
 {
 	color: Red !important;
 }
-.bitshares.signin-main .form-footer .fa-question,
-.bitshares.signin-main .form-footer .fa-refresh 
+.bitshares .form-footer .fa-question,
+.bitshares .form-footer .fa-gear 
 {
 	color: #00365F !important;
 }
 
-.bitshares.signin-main .signin {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #FF8627;
-  color: #ffffff;
-  -webkit-transition: background-color 300ms linear;
-  -moz-transition: background-color 300ms linear;
-  -o-transition: background-color 300ms linear;
-  -ms-transition: background-color 300ms linear;
-  transition: background-color 300ms linear;
-}
-.bitshares.signin-main .signin:hover {
-  background-color: #ff6610;
-}
-.bitshares.signin-main input[type="text"],
-.bitshares.signin-main input[type="number"],
-.bitshares.signin-main input[type="password"] {
+.bitshares input[type="text"],
+.bitshares input[type="number"],
+.bitshares input[type="password"] {
   background-color: #00365F;
   padding-left: 20px;
   border-radius: 0;
@@ -200,30 +197,30 @@
   color: #cccccc;
   height: 43px;
 }
-.bitshares.signin-main .bounceIn {
+.bitshares .bounceIn {
   opacity: 1;
 }
-.bitshares.signin-main .fail {
+.bitshares .fail {
   animation: shake .5s linear;
   -webkit-animation: shake .5s linear;
   -moz-animation: shake .5s linear;
 }
-.bitshares.signin-main .shake {
+.bitshares .shake {
   animation: shake .5s linear 5;
   -webkit-animation: shake .5s linear 5;
   -moz-animation: shake .5s linear 5;
 }
 @media (max-width: 991px) {
-  .bitshares.signin-main .wrap {
+  .bitshares .wrap {
     padding-left: 0;
     padding-right: 0;
   }
 }
 @media (max-width: 767px) {
-  .bitshares.signin-main .form-main {
+  .bitshares .form-main {
     padding: 15px 15px;
   }
-  .bitshares.signin-main .form-footer {
+  .bitshares .form-footer {
     padding: 15px 30px;
   }
 }
@@ -375,26 +372,15 @@ input[type='submit'] {
   overflow: hidden;
   background-color: #eaeaea;
 }
-html,
-body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
-}
 
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -30px;
-  /* Pad bottom by footer height */
-  padding: 0 0 30px;
-}
-
-/* Set the fixed height of the footer here */
 #footer {
-  height: 30px;
-  background-color: white;
+
+	height: 50px;
+	fbackground-color: #f5f5f5;
+}
+.delegateLink
+{
+	margin: 10px 0;
 }
 .social:hover {
     			-webkit-transform:scale(1.1); 
@@ -431,5 +417,12 @@ transition-duration: 0.5s;
 			.social-em:hover {
 				color: #f39c12;
 			}
-
-
+#paymentStatus 
+{
+	padding-top:5px !important;
+	padding-bottom:5px !important;
+}
+#paymentStatusTable table, td, th 
+{
+	border-color: #333 !important;
+}

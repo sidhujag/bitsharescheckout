@@ -18,7 +18,7 @@ function verifyOpenOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Order Hash';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
 	  return $ret;
 	}
 	$demo = FALSE;
@@ -63,7 +63,7 @@ function lookupOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Order Hash';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
 	  return $ret;
 	}
 
@@ -89,19 +89,58 @@ function cancelOrder($memo, $order_id)
 	}	
 	return $response;
 }
-function getPaymentURLFromOrder($memo, $order_id, $balance)
+function getPaymentURLFromOrder($memo, $order_id)
 {
+
 	global $accountName;
+	global $rpcUser;
+	global $rpcPass;
+	global $rpcPort;
+	global $demoMode;
+	global $hashSalt;
 	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Order Hash';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
 	  return $ret;
 	}
 	$order = $orderArray[0];
 	$ret = array();
-	$ret['url'] = btsCreatePaymentURL($accountName, $balance, $order['asset'], $memo);
+	$demo = FALSE;
+	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
+	{
+		$demo = TRUE;
+	}	
+	$response = btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
+
+	if(array_key_exists('error', $response))
+	{
+	  $ret = array();
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  return $ret;
+	}
+	$balance = $order['total'];
+	foreach ($response as $responseOrder) {
+		switch($responseOrder['status'])
+		{	
+			case 'processing':
+			case 'overpayment':
+			case 'complete':
+				$balance -= $responseOrder['amount'];
+				break; 
+			default:
+				break;
+		} 
+	}
+	if($balance <= 0)
+	{
+		$ret['error'] = 'This order has already been paid';
+	}
+	else
+	{	
+		$ret['url'] = btsCreatePaymentURL($accountName, $balance, $order['asset'], $memo);
+	}
 	return $ret;
 }
 

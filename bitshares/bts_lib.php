@@ -86,7 +86,7 @@ function btsCurl($url, $post, $rpcUser, $rpcPass, $rpcPort)
 function btsCreateEHASH($account,$order_id, $price, $asset, $salt)
 {
   $string = $account.$order_id.$price.$asset.$salt;
-  return substr(md5($string), 0, 12);
+  return substr(md5($string), 0, 18);
 }
 
 /**
@@ -132,7 +132,7 @@ function btsGetAssetNameById($assetId, $rpcUser, $rpcPass, $rpcPort)
 }
 function btsCreateMemo($hash)
 {
-  return 'EHASH:'.$hash;
+  return $hash;
 }
 function btsCreatePaymentURL($account, $amount, $asset, $memo)
 {

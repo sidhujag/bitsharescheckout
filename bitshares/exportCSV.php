@@ -14,7 +14,7 @@ fputcsv($output, array('#', 'Transaction ID', 'Order ID', 'Amount'));
 $count = 0;
 foreach ($response as $responseOrder) {
 	$count++;
-	fputcsv($output, array($count, $responseOrder['trx_id'], $responseOrder['order_id'], $responseOrder['amount']));
+	fputcsv($output, array($count, $responseOrder['trx_id'], $responseOrder['order_id'], $responseOrder['amount'].' ' . $responseOrder['asset']));
 }
 if(count($response) <= 0)
 {
