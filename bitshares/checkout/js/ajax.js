@@ -100,7 +100,10 @@
                             text: textresponse,
                             type: 'success',
                         });
-                        window.location.href =  response.url;
+                        if(response.url.length > 1)
+                        {
+                            window.location.href =  response.url;
+                        }
 			            btsStartPaymentTracker(serializedData);
 			            btsShowPaymentStatus();                                  
                     }

@@ -135,7 +135,7 @@ function getPaymentURLFromOrder($memo, $order_id)
 	}
 	if($balance <= 0)
 	{
-		$ret['error'] = 'This order has already been paid';
+		$ret['url'] = '#';
 	}
 	else
 	{	
