@@ -37,7 +37,7 @@
                     }
                     else 
                     {
-                        if(globalTotal == 0 && globalAsset === "")
+                        if(globalTotal === 0 && globalAsset === "")
                         {
                             globalTotal = response.total;
                             globalAsset = response.asset;
@@ -82,13 +82,13 @@
                 btsUpdateUIPaymentFail();                 
             },                              
             success: function(response, textStatus, jqXHR) {
-                var textresponse = "Payment processing..."
+                var textresponse = "Payment processing...";
 
                 if(response)
                 {
                     if(response.error)
                     {
-                       var n = noty({
+                       noty({
                             text: response.error,
                             type: 'error'
                         });
@@ -96,9 +96,9 @@
                     }
                     else if(response.url)
                     {
-                       var n = noty({
+                        noty({
                             text: textresponse,
-                            type: 'success',
+                            type: 'success'
                         });
                         if(response.url.length > 1)
                         {
@@ -193,14 +193,14 @@
                if(response)
                { 
                    var textresponse = "Returning to checkout...If you are not redirected click <a href='"+response.url+"'>here</a>";
-                   var n = noty({
+                    noty({
                         text: textresponse,
                         type: 'success',
                         timeout: false
                     }); 
                     if(response.error)
                     {
-                       var n = noty({
+                        noty({
                             text: response.error,
                             type: 'error'
                         });                    

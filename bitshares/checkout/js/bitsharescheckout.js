@@ -5,12 +5,26 @@
         for (var i = 0; i < sURLVariables.length; i++) 
         {
             var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam) 
+            if (sParameterName[0] === sParam) 
             {
                 return sParameterName[1];
             }
         }
     }
+    function btsStartPaymentTracker(serializedData)
+    {
+        if(globalScanInProgress)
+        {
+            return;
+        }    
+        btsUpdateUIScan();      
+        if(globalPaymentTimer)
+            clearInterval(globalPaymentTimer);
+        ajaxScanChain(serializedData);    
+        globalPaymentTimer = setInterval(function() {
+            ajaxScanChain(serializedData);  
+        }, 10000); 
+    }    
     $( document ).ready(function() {      
         var accountName = GetURLParameter('accountName');
         var order_id = GetURLParameter('order_id');
@@ -34,7 +48,9 @@
         globalRedirectDialog.open();  
         var countdown = 10;
         if(globalRedirectCountdownTimer)
+        {
             clearInterval(globalRedirectCountdownTimer);
+        }    
         globalRedirectCountdownTimer = setInterval(function() {
             countdown--;
             $('#redirectCountdown').text("You will be automatically redirected back to the merchant site within " + countdown + " seconds...");
@@ -55,24 +71,23 @@
     function btsExportPaymentTableToCSV() {
         window.location.href = '../exportCSV.php?memo='+$('#memo').val()+'&order_id='+$('#order_id').val();
     }    
-    var btsShowPaymentStatus = function()
+    function btsShowPaymentStatus()
     {
         $('#exportCSV').removeClass('invisible');
         $('#paymentStatus').removeClass('hidden');
         btsStartPaymentTracker($('#btsForm').serialize()); 
     }
     
-    var btsUpdateOnChange = function()
+    function btsUpdateOnChange()
     {
         if(globalScanInProgress)
         {
-            BootstrapDialog.warning('You have cancelled the current payment scan!');        
-    
-        }    
+            BootstrapDialog.warning('You have cancelled the current payment scan!');        
+        }
         btsUpdateUIScanClear();    
     }    
       
-    var btsPayClick = function() {
+    function btsPayClick() {
                 
         if(globalPaid)
         {
@@ -84,7 +99,6 @@
             BootstrapDialog.confirm('There are partial payment(s) on this order. Would you like to pay the remaining balance of ' + $("#paymentBalance").text() + '?', function(result){
                 if(result) {
                     ajaxPay($('#btsForm').serialize());
-                }else {  
                 }
             });         
         }                  
@@ -132,17 +146,4 @@
         }
           
 		
-	});        
-    function btsStartPaymentTracker(serializedData)
-    {
-        if(globalScanInProgress)
-            return;
-        btsUpdateUIScan();      
-        if(globalPaymentTimer)
-            clearInterval(globalPaymentTimer);
-        ajaxScanChain(serializedData);    
-        globalPaymentTimer = setInterval(function() {
-            ajaxScanChain(serializedData);  
-        }, 10000); 
-    }                   
-    
+	});

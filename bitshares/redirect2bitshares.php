@@ -11,11 +11,12 @@ if(isset($response['accountName']))
 		'memo'     => $response['memo']
 	);
 
-	$rbimg = 'checkout/img/robohash.png';
+	$rbimg = ROOT.'checkout/img/robohash.png';
 	if(!file_exists($img))
 	{
 	  $rbUrl = 'http://robohash.org/'.$response['accountName'].'?size=100x100';
-	  file_put_contents($rbimg, file_get_contents($rbUrl));
+	  $contents = file_get_contents($rbUrl);
+	  file_put_contents($rbimg, $contents);
 	}    
 
 

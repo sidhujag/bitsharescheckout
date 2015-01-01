@@ -8,7 +8,9 @@
 	    $('#paymentProgressOuter').addClass("active");
         var balance = globalTotal - globalAmountReceived;
         if(balance < 0)
-            balance = 0;	    
+        {
+            balance = 0;
+        }    	    
         balance = parseFloat(balance).toFixed(2);
         $("#paymentBalance").text(balance + " " + globalAsset);
 
