@@ -12,8 +12,8 @@ module.exports = function (grunt) {
 
   // Default task.
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean:all','concat','recess:build']);
-  grunt.registerTask('release', ['clean:all','uglify','concat:index', 'recess:min']);
+  grunt.registerTask('build', ['clean:all','concat','recess:build',  'copy:distfiles']);
+  grunt.registerTask('release', ['clean:all','uglify','concat:index', 'recess:min', 'copy:distfiles']);
 
 
   // Print a timestamp (useful for when watching)
@@ -27,6 +27,11 @@ module.exports = function (grunt) {
   grunt.initConfig({
     distdir: 'dist',
     pkg: grunt.file.readJSON('package.json'),
+    banner:
+    '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+    '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
+    ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
+    ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
     src: {
       js: ['js/*.js'],
       jsTpl: ['<%= distdir %>/templates/**/*.js'],
@@ -60,7 +65,7 @@ module.exports = function (grunt) {
       },
       index: {
         src: ['index.html'],
-        dest: '<%= distdir %>/index.html',
+        dest: 'index.html',
         options: {
           process: true
         }
@@ -73,6 +78,7 @@ module.exports = function (grunt) {
     uglify: {
       dist:{
         options: {
+          banner: "<%= banner %>",
           mangle: false
         },
         src:['<%= src.js %>' ,'<%= src.jsTpl %>'],

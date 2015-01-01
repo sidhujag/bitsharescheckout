@@ -1,13 +1,27 @@
 Order deny,allow
 Deny from all
 
-<Files ~ "\.(xml|css|jpe?g|png|gif|js|pdf)$">
+<Files ~ "index.html">
   Allow from all
 </Files>
-
-<Files ~ "callbacks\.php$">
+<Files ~ "bitsharescheckout.css">
   Allow from all
 </Files>
+<Files ~ "bitsharescheckout.js">
+  Allow from all
+</Files>
+<Files ~ "vendor.js">
+  Allow from all
+</Files>
+<Directory "/callbacks/">
+  Allow from all
+</Directory>
+<Directory "/img/">
+  Allow from all
+</Directory>
+<Directory "/fonts/">
+  Allow from all
+</Directory>
 # ------------------------------------------------------------------------------
 # 
 # Curtousy of the Magento Support Center

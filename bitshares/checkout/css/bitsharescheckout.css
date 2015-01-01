@@ -61,7 +61,7 @@ body {
 }
 .bitshares .bitshareslogo 
 {
-	background-image:url("../img/bitsharescheckout.png");
+	background-image:url("img/bitsharescheckout.png");
 	background-repeat: no-repeat;
 	background-position: center;
 	height:71px;
@@ -103,13 +103,13 @@ body {
   background: #f6f8f9;
   width:100px;
   height:100px;
-  background-image: url('../img/robohash.png');
-	background-image: url('../img/robohash.png'), -webkit-gradient(linear, left top, right bottom, color-stop(0%, #f6f8f9), color-stop(50%, #e5ebee), color-stop(51%, #d7dee3), color-stop(100%, #f5f7f9)); /* Saf4+, Chrome */
-	background-image: url('../img/robohash.png'), -webkit-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Chrome 10+, Saf5.1+ */
-	background-image: url('../img/robohash.png'),    -moz-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* FF3.6+ */
-	background-image: url('../img/robohash.png'),     -ms-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* IE10 */
-	background-image: url('../img/robohash.png'),      -o-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Opera 11.10+ */
-	background-image: url('../img/robohash.png'),         linear-gradient(135deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* W3C */  
+  background-image: url('img/robohash.png');
+	background-image: url('img/robohash.png'), -webkit-gradient(linear, left top, right bottom, color-stop(0%, #f6f8f9), color-stop(50%, #e5ebee), color-stop(51%, #d7dee3), color-stop(100%, #f5f7f9)); /* Saf4+, Chrome */
+	background-image: url('img/robohash.png'), -webkit-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Chrome 10+, Saf5.1+ */
+	background-image: url('img/robohash.png'),    -moz-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* FF3.6+ */
+	background-image: url('img/robohash.png'),     -ms-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* IE10 */
+	background-image: url('img/robohash.png'),      -o-linear-gradient(-45deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Opera 11.10+ */
+	background-image: url('img/robohash.png'),         linear-gradient(135deg, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* W3C */  
 
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f8f9', endColorstr='#f5f7f9', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
