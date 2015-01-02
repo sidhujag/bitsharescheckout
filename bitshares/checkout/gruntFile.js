@@ -13,7 +13,7 @@ module.exports = function (grunt) {
   // Default task.
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['clean:all','concat','recess:build',  'copy:distfiles']);
-  grunt.registerTask('release', ['clean:all','uglify','concat:index', 'recess:min', 'copy:distfiles']);
+  grunt.registerTask('release', ['clean:all','uglify','concat:index', 'recess:min', 'compress', 'copy:stripgzipext', 'clean:gzip', 'copy:distfiles']);
 
 
   // Print a timestamp (useful for when watching)
@@ -46,13 +46,17 @@ module.exports = function (grunt) {
       cssWatch: ['css/**/*.css']
     },
     clean: {
-        all: ['<%= distdir %>/*']
+        all: ['<%= distdir %>/*'],
+        gzip:['<%= distdir %>/**/*.gz']
         },
     copy: {
       distfiles: {
         files: [{ dest: '', src : '**', expand: true, cwd: '<%= distdir %>' }]
-      } 
-                  
+      },   
+      stripgzipext:{
+        files: [{ dest: '', src : '<%= distdir %>/**/*.css.gz', expand: true, extDot:'first', ext:'.css' }, 
+        { dest: '', src : '<%= distdir %>/**/*.js.gz', expand: true, extDot:'first', ext:'.js' }]
+      }                  
     },
     
     concat:{
@@ -75,6 +79,17 @@ module.exports = function (grunt) {
         dest: '<%= distdir %>/vendor.js'
       }
     },
+    compress: {
+      main: {
+        options: {
+          level: 4,  
+          mode: 'gzip'
+        },
+        files: [
+          {expand: true, src: ['<%= distdir %>/**/*.{css,js}'], dest: ''}
+        ]
+      }
+    },    
     uglify: {
       dist:{
         options: {

@@ -1,9 +1,8 @@
-Order deny,allow
-Deny from all
-<Files ~ "\.(xml|css|jpe?g|png|gif|js|pdf)$">
-  Allow from all
+<Files ~ "^.*\.(LOG|log|back|bak|bk|lock|lck|LCK|txt|text|backup|pem|PEM|TXT)">
+    Order allow,deny
+    Deny from all
+    Satisfy All
 </Files>
-
-<Files "redirect2bitshares.php">
-  Allow from all
+<Files "config.php">
+    Deny from all
 </Files>
