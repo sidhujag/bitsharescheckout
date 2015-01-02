@@ -1,9 +1,8 @@
-<Files ~ "^.*\.(LOG|log|back|bak|bk|lock|lck|LCK|txt|text|backup|pem|PEM|TXT)">
-    Order allow,deny
-    Deny from all
-    Satisfy All
-</Files>
+<IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+        <Files ~ "^.*\.(js|css)">
+	   Header set Content-Encoding "gzip"
+        </Files>
+    </IfModule>
+</IfModule>
 
-<Files ~ "^.*\.(js|css)">
-     Header set Content-Encoding "gzip"
-</Files>
