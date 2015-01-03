@@ -13,7 +13,7 @@ module.exports = function (grunt) {
   // Default task.
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['clean:all','concat','recess:build',  'copy:distfiles']);
-  grunt.registerTask('release', ['clean:all','uglify','concat:index', 'recess:min', 'compress', 'copy:stripgzipext', 'clean:gzip', 'copy:distfiles']);
+  grunt.registerTask('release', ['clean:all','uglify', 'recess:min', 'copy:distfiles']);
 
 
   // Print a timestamp (useful for when watching)
@@ -65,7 +65,7 @@ module.exports = function (grunt) {
           banner: "<%= banner %>"
         },
         src:['<%= src.js %>', '<%= src.jsTpl %>'],
-        dest:'<%= distdir %>/<%= pkg.name %>.js'
+        dest:'<%= distdir %>/<%= pkg.name %>.min.js'
       },
       index: {
         src: ['index.html'],
@@ -76,7 +76,7 @@ module.exports = function (grunt) {
       },
       vendor: {
         src:['js/vendor/jquery.min.js', 'js/vendor/jquery.noty.packaged.min.js', 'js/vendor/jquery.localize.min.js', 'js/vendor/bootstrap.min.js', 'js/vendor/bootstrap-dialog.min.js', 'vendor/angular-cookies.min.js', 'js/vendor/waypoints.min.js', 'js/vendor/angular-animate.min.js', 'js/vendor/html5shiv.js', 'js/vendor/respond.min.js'],
-        dest: '<%= distdir %>/vendor.js'
+        dest: '<%= distdir %>/vendor.min.js'
       }
     },
     compress: {
@@ -97,17 +97,17 @@ module.exports = function (grunt) {
           mangle: false
         },
         src:['<%= src.js %>' ,'<%= src.jsTpl %>'],
-        dest:'<%= distdir %>/<%= pkg.name %>.js'
+        dest:'<%= distdir %>/<%= pkg.name %>.min.js'
       },
       vendor: {
         src:['<%= concat.vendor.src %>'],
-        dest: '<%= distdir %>/vendor.js'
+        dest: '<%= distdir %>/vendor.min.js'
       }   
     },
     recess: {
       build: {
         files: {
-          '<%= distdir %>/<%= pkg.name %>.css':
+          '<%= distdir %>/<%= pkg.name %>.min.css':
           ['<%= src.css %>'] },
         options: {
           compile: true
@@ -115,7 +115,7 @@ module.exports = function (grunt) {
       },
       min: {
         files: {
-          '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.css %>']
+          '<%= distdir %>/<%= pkg.name %>.min.css': ['<%= src.css %>']
         },
         options: {
           compress: true
