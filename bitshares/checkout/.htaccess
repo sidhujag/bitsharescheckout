@@ -1,8 +1,0 @@
-<IfModule mod_setenvif.c>
-    <IfModule mod_headers.c>
-        <Files ~ "^.*\.(js|css)">
-	   Header set Content-Encoding "gzip"
-        </Files>
-    </IfModule>
-</IfModule>
-
