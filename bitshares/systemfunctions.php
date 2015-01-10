@@ -6,6 +6,48 @@ function debuglog($contents)
 {
 	error_log($contents);
 }
+function verifyAndCompleteOpenOrder($orderArray)
+{
+	global $baseURL;
+	global $relayURL;
+	global $accountName;
+	global $rpcUser;
+	global $rpcPass;
+	global $rpcPort;
+	global $demoMode;
+	global $hashSalt;
+
+	$demo = FALSE;
+	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
+	{
+		$demo = TRUE;
+	}
+	$response = btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
+
+	if(array_key_exists('error', $response))
+	{
+	  $ret = array();
+	  $ret['error'] = 'Could not verify order. Please try again';
+	  return $ret;
+	}	
+	foreach ($response as $responseOrder) {
+		switch($responseOrder['status'])
+		{	
+			case 'overpayment':
+			case 'complete':
+          $ret = completeOrderUser($responseOrder);
+          if(array_key_exists('error', $ret))
+          {
+            $response['error'] = $ret['error'];
+          }
+				  break; 
+			default:
+				break;
+		} 
+	}
+
+	return $response;	  
+}
 function verifyOpenOrder($memo, $order_id)
 {
 	global $accountName;
@@ -31,7 +73,7 @@ function verifyOpenOrder($memo, $order_id)
 function getOrderComplete($memo, $order_id)
 {	
   $orders = array();
-  $myorder = isOrderComplete($memo, $order_id);
+  $myorder = isOrderCompleteUser($memo, $order_id);
   if($myorder !== FALSE)
   {
     array_push($orders, $myorder);
@@ -42,7 +84,7 @@ function getOrderComplete($memo, $order_id)
 function getOrder($memo, $order_id)
 {
   $orders = array();
-  $myorder = doesOrderExist($memo, $order_id);
+  $myorder = doesOrderExistUser($memo, $order_id);
   if($myorder !== FALSE)
   {
     array_push($orders, $myorder);
@@ -76,12 +118,38 @@ function lookupOrder($memo, $order_id)
 }
 function completeOrder($memo, $order_id)
 {
-	return completeOrderUser($memo, $order_id);
+	$orderArray = getOrder($memo, $order_id);
+	if(count($orderArray) <= 0)
+	{
+	  $ret = array();
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  return $ret;
+	}
+
+	if ($orderArray[0]['order_id'] !== $order_id) {
+		$ret = array();
+		$ret['error'] = 'Invalid Order ID';
+		return $ret;
+	}  
+	return verifyAndCompleteOpenOrder($orderArray); 
 }
 function cancelOrder($memo, $order_id)
 {
 	global $baseURL;
-	$response = cancelOrderUser($memo, $order_id);
+	$orderArray = getOrder($memo, $order_id);
+	if(count($orderArray) <= 0)
+	{
+	  $ret = array();
+	  $ret['url'] = $baseURL;
+	  return $ret;
+	}
+
+	if ($orderArray[0]['order_id'] !== $order_id) {
+	  $ret = array();
+	  $ret['url'] = $baseURL;
+	  return $ret;
+	}	  
+	$response = cancelOrderUser($orderArray[0]);
 	if(array_key_exists('error', $response))
 	{	
 		$response['url'] = $baseURL;	
@@ -150,13 +218,21 @@ function createOrder()
 }
 function cronJob($token)
 {
-
 	global $cronToken;
 	if($token !== $cronToken)
 	{
 		return 'Invalid cronjob token!';
 	}
-	
-	return cronJobUser();
+	$openOrderList = getOpenOrdersUser();
+	if(count($openOrderList) <= 0)
+	{
+	  return 'No open orders found!';
+	}
+	$response = verifyAndCompleteOpenOrder($openOrderList);
+	if(array_key_exists('error', $response))
+	{	
+		return $response;
+	}	  
+  return cronJobUser();
 }
 ?>

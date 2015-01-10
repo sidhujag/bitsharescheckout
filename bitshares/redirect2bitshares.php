@@ -3,7 +3,7 @@ echo 'Redirecting to Bitshares payment gateway...'.PHP_EOL;
 require 'systemfunctions.php';
 
 $response = createOrder();
-if(isset($response['accountName']))
+if(!array_key_exists('error', $response))
 {
 	$post = array(
 		'accountName'     => $response['accountName'],
@@ -34,6 +34,6 @@ if(isset($response['accountName']))
 }
 else
 {
-	echo 'There was a problem creating a new order!'.PHP_EOL;
+	echo 'Problem creating order: '. $response['error'].PHP_EOL;
 }
 ?>
