@@ -16,7 +16,7 @@ function verifyAndCompleteOpenOrder($orderArray)
 	global $rpcPort;
 	global $demoMode;
 	global $hashSalt;
-
+	$ret = array();
 	$demo = FALSE;
 	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
 	{
@@ -26,7 +26,7 @@ function verifyAndCompleteOpenOrder($orderArray)
 
 	if(array_key_exists('error', $response))
 	{
-	  $ret = array();
+	  
 	  $ret['error'] = 'Could not verify order. Please try again';
 	  return $ret;
 	}	
@@ -35,18 +35,14 @@ function verifyAndCompleteOpenOrder($orderArray)
 		{	
 			case 'overpayment':
 			case 'complete':
-          $ret = completeOrderUser($responseOrder);
-          if(array_key_exists('error', $ret))
-          {
-            $response['error'] = $ret['error'];
-          }
+				  $ret = completeOrderUser($responseOrder);
 				  break; 
 			default:
 				break;
 		} 
 	}
 
-	return $response;	  
+	return $ret;	  
 }
 function verifyOpenOrder($memo, $order_id)
 {
@@ -118,6 +114,7 @@ function lookupOrder($memo, $order_id)
 }
 function completeOrder($memo, $order_id)
 {
+	global $baseURL;
 	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
@@ -131,7 +128,9 @@ function completeOrder($memo, $order_id)
 		$ret['error'] = 'Invalid Order ID';
 		return $ret;
 	}  
-	return verifyAndCompleteOpenOrder($orderArray); 
+	$response = verifyAndCompleteOpenOrder($orderArray);
+	$response['fallbackURL'] = $baseURL;
+	return $response;
 }
 function cancelOrder($memo, $order_id)
 {
@@ -154,7 +153,8 @@ function cancelOrder($memo, $order_id)
 	{	
 		$response['url'] = $baseURL;	
 		return $response;
-	}	
+	}
+	$response['fallbackURL'] = $baseURL;
 	return $response;
 }
 function getPaymentURLFromOrder($memo, $order_id)

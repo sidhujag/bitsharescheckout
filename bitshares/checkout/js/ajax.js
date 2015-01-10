@@ -145,7 +145,7 @@
 		        btsUpdateUIReturnError();                                 
             },                              
             success: function(response, textStatus, jqXHR) {
-               if(response)
+               if(response && response.url)
                { 
                    var textresponse = "Returning to checkout...If you are not redirected click <a href='"+response.url+"'>here</a>";
                    var n = noty({
@@ -192,7 +192,12 @@
             success: function(response, textStatus, jqXHR) {
                if(response)
                { 
-                   var textresponse = "Returning to checkout...If you are not redirected click <a href='"+response.url+"'>here</a>";
+                    var retURL = response.url;
+                    if(!response.url && response.fallbackURL)
+                    {
+                        retURL = response.fallbackURL;
+                    }
+                   var textresponse = "Returning to checkout...If you are not redirected click <a href='"+retURL+"'>here</a>";
                     noty({
                         text: textresponse,
                         type: 'success',
