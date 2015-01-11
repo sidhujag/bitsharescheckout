@@ -141,7 +141,7 @@ function cancelOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
 	  $ret['fallbackURL'] = $baseURL;
 	  return $ret;
 	}
