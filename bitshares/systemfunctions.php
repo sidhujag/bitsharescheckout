@@ -120,12 +120,14 @@ function completeOrder($memo, $order_id)
 	{
 	  $ret = array();
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  $ret['fallbackURL'] = $baseURL;
 	  return $ret;
 	}
 
 	if ($orderArray[0]['order_id'] !== $order_id) {
 		$ret = array();
 		$ret['error'] = 'Invalid Order ID';
+		$ret['fallbackURL'] = $baseURL;
 		return $ret;
 	}  
 	$response = verifyAndCompleteOpenOrder($orderArray);
@@ -139,21 +141,18 @@ function cancelOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['url'] = $baseURL;
+	  $ret['error'] = 'Could not find this order';
+	  $ret['fallbackURL'] = $baseURL;
 	  return $ret;
 	}
 
 	if ($orderArray[0]['order_id'] !== $order_id) {
 	  $ret = array();
-	  $ret['url'] = $baseURL;
+	  $ret['error'] = 'Invalid Order ID';
+	  $ret['fallbackURL'] = $baseURL;
 	  return $ret;
 	}	  
 	$response = cancelOrderUser($orderArray[0]);
-	if(array_key_exists('error', $response))
-	{	
-		$response['url'] = $baseURL;	
-		return $response;
-	}
 	$response['fallbackURL'] = $baseURL;
 	return $response;
 }

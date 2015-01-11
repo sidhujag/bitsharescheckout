@@ -145,18 +145,31 @@
 		        btsUpdateUIReturnError();                                 
             },                              
             success: function(response, textStatus, jqXHR) {
-               if(response && response.url)
+               if(response)
                { 
-                   var textresponse = "Returning to checkout...If you are not redirected click <a href='"+response.url+"'>here</a>";
-                   var n = noty({
-                        text: textresponse,
-                        type: 'success',
-                        timeout: false
-                    }); 
-                    if(response.url)
+                   if(response.fallbackURL)
+                   { 
+                       var textresponse = "Returning to checkout...If you are not redirected click <a href='"+response.fallbackURL+"'>here</a>";
+                       var n = noty({
+                            text: textresponse,
+                            type: 'success',
+                            timeout: false
+                        });
+                    }               
+                    if(response.error)
                     {
-                        window.location.href =  response.url;                 
-                    }                                  
+                       noty({
+                            text: response.error,
+                            type: 'error'
+                        });                                           
+                    }
+                    else if(response.url)
+                    {                                  
+
+                       window.location.href =  response.url;                 
+                        
+                    }
+                                                      
                 }
                                                   
             }
@@ -192,28 +205,29 @@
             success: function(response, textStatus, jqXHR) {
                if(response)
                { 
-                    var retURL = response.url;
-                    if(!response.url && response.fallbackURL)
-                    {
-                        retURL = response.fallbackURL;
-                    }
-                   var textresponse = "Returning to checkout...If you are not redirected click <a href='"+retURL+"'>here</a>";
-                    noty({
-                        text: textresponse,
-                        type: 'success',
-                        timeout: false
-                    }); 
+                   if(response.fallbackURL)
+                   { 
+                       var textresponse = "Returning to checkout...If you are not redirected click <a href='"+response.fallbackURL+"'>here</a>";
+                       var n = noty({
+                            text: textresponse,
+                            type: 'success',
+                            timeout: false
+                        });
+                    }               
                     if(response.error)
                     {
-                        noty({
+                       noty({
                             text: response.error,
                             type: 'error'
-                        });                    
+                        });                                           
                     }
-                    if(response.url)
-                    {
-                        window.location.href =  response.url;                 
-                    }                                  
+                    else if(response.url)
+                    {                                  
+
+                       window.location.href =  response.url;                 
+                        
+                    }
+                                                      
                 }
                                                   
             }
