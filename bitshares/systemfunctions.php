@@ -184,7 +184,7 @@ function getPaymentURLFromOrder($memo, $order_id)
 	if(array_key_exists('error', $response))
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  $ret['error'] = $response['error'];
 	  return $ret;
 	}
 	$balance = $order['total'];
