@@ -30,7 +30,7 @@ if(!array_key_exists('error', $response))
 		}
 		$urlParams .= $key.'='.$value;
 	}
-	header('refresh:3;url=checkout/index.html'.$urlParams );
+	header('Location: checkout/index.html'.$urlParams );
 }
 else
 {
