@@ -1,5 +1,8 @@
 bitshares/bitsharescheckout
 =======================
+
+![Screenshot](/bitshares/imgs/screenshot.png?raw=true "Bitshares Checkout")
+
 # About
 	
 + Bitshares payments gateway for E-Commerce applications. Imagine accepting payments for orders in any fiat currency on the blockchain! You have a business and you don't want to add a custom currency such as Bitcoin or BTS, or deal with conversion of fiat to crypto currency rates? Easily integrate Bitshares Checkout using one of the well-known shopping carts and accept payments for the BitAsset equivalent of the fiat currency using the Bitshares decentralized exchange within minutes! Choose a plugin available for one of the many popular shopping-cart packages to be able to pay for orders using the BitXXX equivalent of fiat currency used to create order
