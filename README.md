@@ -42,15 +42,15 @@ There are only a few functions in userfunctions.php that a plugin is responsible
 # Configuration
 
 1. Fill out the config.php of your plugin with appropriate information to configure Bitshares Checkout<br />
-    a. $baseURL - should point to your web root directory of your E-Commerce application, including the forward slash at the end.
-		- IE: $baseURL = 'http://www.bitsharesdemo.com/whmcs/';
-	b. $accountName - The name of your Bitshares account to accept payments from people who pay via Bitshares Checkout. The wallet must be running on the same server thats serving Bitshares Checkout
-	c. $rpcUser, $rpcPass, $rpcPort - RPC Credentials to connect to your Bitshares client accepting RPC connections. Make sure your RPC settings on your client match these settings. The client must be running on the same server as the one serving Bitshares Checkout.
-	d. $demoMode - If set to TRUE, will accept any asset from Bitshares as a form of payment towards an order
-		- IE: User checks out with a $3 USD order, Bitshares Checkout will accept 3 BTS for complete payment is set to TRUE, otherwise will only accept 3 BitUSD to complete payment. Important! for demo use only, set to FALSE for production environments.
-	e. $hashSalt - Just a salt value used in calculating the hash value you see in the MEMO field, make it unique and un-guessable.
-	f. $cronToken - A token used to validate cron job calls, similar to the salt just a unique value that is unique and un-guessable.
-2. Make sure config.php/userfunctions.php are not accessible to any visitors. Important! For security reasons make sure these files are locked down and test to make sure they are not readable/writable by visitors. Any form of access should be prohibited symlinks, directory/file browsing etc. By default the htaccess file is already set up for you. If your webserver works with the htaccess file then your good to go!
+	a. $baseURL - should point to your web root directory of your E-Commerce application, including the forward slash at the end.<br/>
+		- IE: $baseURL = 'http://www.bitsharesdemo.com/whmcs/';<br/>
+	b. $accountName - The name of your Bitshares account to accept payments from people who pay via Bitshares Checkout. The wallet must be running on the same server thats serving Bitshares Checkout<br/>
+	c. $rpcUser, $rpcPass, $rpcPort - RPC Credentials to connect to your Bitshares client accepting RPC connections. Make sure your RPC settings on your client match these settings. The client must be running on the same server as the one serving Bitshares Checkout.<br/>
+	d. $demoMode - If set to TRUE, will accept any asset from Bitshares as a form of payment towards an order<br/>
+		- IE: User checks out with a $3 USD order, Bitshares Checkout will accept 3 BTS for complete payment is set to TRUE, otherwise will only accept 3 BitUSD to complete payment. Important! for demo use only, set to FALSE for production environments.<br/>
+	e. $hashSalt - Just a salt value used in calculating the hash value you see in the MEMO field, make it unique and un-guessable.<br/>
+	f. $cronToken - A token used to validate cron job calls, similar to the salt just a unique value that is unique and un-guessable.<br/>
+2. Make sure config.php/userfunctions.php are not accessible to any visitors. Important! For security reasons make sure these files are locked down and test to make sure they are not readable/writable by visitors. Any form of access should be prohibited symlinks, directory/file browsing etc. By default the htaccess file is already set up for you. If your webserver works with the htaccess file then your good to go!<br/>
 
 
 Usage
