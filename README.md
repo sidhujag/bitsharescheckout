@@ -17,7 +17,7 @@ bitshares/bitsharescheckout
 
 # Installation
 
-1. Copy these files into your web root directory. Typically the root of your shopping cart or E-Commerce application.
+1. Copy these files into your application root directory. Typically the root of your shopping cart or E-Commerce application.
 2. Copy plugin you have created for your E-Commerce application to the same root directory.
 
 # Development/Debugging Front-End
