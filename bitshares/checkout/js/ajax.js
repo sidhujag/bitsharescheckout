@@ -324,7 +324,7 @@
                     }                  
                     if(complete)
                     {
-                        setTimeout(function(){ btsPaymentComplete(); }, 5000); 
+                        btsPaymentComplete(); 
                         clearInterval(globalPaymentTimer);
                         btsUpdateUIFullPayment();  
                     }

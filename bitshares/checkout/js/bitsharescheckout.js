@@ -53,7 +53,8 @@
         }    
         globalRedirectCountdownTimer = setInterval(function() {
             countdown--;
-            $('#redirectCountdown').text("You will be automatically redirected back to the merchant site within " + countdown + " seconds...");
+            
+            $('#redirectCountdown').text("You will now be automatically redirected back to the merchant site within " + countdown + " seconds...<br /><br />");
             if(countdown <= 0)
             { 
                 clearInterval(globalRedirectCountdownTimer);       
