@@ -27,9 +27,9 @@ bitshares/bitsharescheckout
 	
 # Development/Debugging Back-End
 
-Each shopping cart plugin handles order processing differently and there are many examples of how this is done, take a look at userfunctions.php of each plugin (http://github.com/sidhujag).
+Each shopping cart plugin handles order processing differently and there are many examples of how this is done, take a look at userfunctions.php of each plugin (http://github.com/sidhujag). It is the only file you will need to touch.
 
-There are only a few functions that a plugin is responsible for in order to work with Bitshares Checkout, the rest of the hardwork is done for you:
+There are only a few functions in userfunctions.php that a plugin is responsible for in order to work with Bitshares Checkout, the rest of the hardwork is done for you:
 
 1. isOrderCompleteUser($memo, $order_id) -  Passed a MEMO and ORDER_ID, is responsible for asking the E-Commerce application (shopping cart) if an order has been 'completed' usually done by checking order status of an open order. The exact status depends on the application and how it stores status in its database. Returns TRUE or FALSE. Usually ORDER_ID is used here and corrosponds to the ORDER_ID of the order that the application passed to Bitshares Checkout. Memo of the returned order information from the application is recreated and confirmed as a sanity test against the MEMO field passed in.
 2. doesOrderExistUser($memo, $order_id) - Passed a MEMO and ORDER_ID, is responsible for asking the E-Commerce application (shopping cart) if an order exists and is in 'unpaid' status. The exact status depends on the application and how it stores status in its database. usually done by checking order status of an open order. Returns the order or FALSE if not found. Usually ORDER_ID is used here and corrosponds to the ORDER_ID of the order that the application passed to Bitshares Checkout. Memo of the returned order information from the application is recreated and confirmed as a sanity test against the MEMO field passed in.
