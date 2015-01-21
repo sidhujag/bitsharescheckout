@@ -18,7 +18,7 @@ bitshares/bitsharescheckout
 # Installation
 
 1. Copy these files into your application root directory. Typically the root of your shopping cart or E-Commerce application.
-2. Copy the Bitshares plugin for your shopping cart softare to the same root directory. Overwrite any files.
+2. Copy the Bitshares plugin for your shopping cart software to the same root directory. Overwrite any files.
 
 # Development/Debugging Front-End
 
