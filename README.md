@@ -63,7 +63,7 @@ When a shopper chooses the Bitshares payment method using the plugin in the E-Co
 ## Support
 
 * [Github Issues](https://github.com/sidhujag/bitsharescheckout/issues)
-  * Open an Issue if you are having issues with this plugin
+  * Open an Issue if you are having issues with this system. If you have an issue with one of the plugins please see the github for that plugin to open an issue.
 
 
 # Contribute
