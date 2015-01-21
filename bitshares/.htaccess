@@ -6,3 +6,6 @@
 <Files "config.php">
     Deny from all
 </Files>
+<Files "userfunctions.php">
+    Deny from all
+</Files>
