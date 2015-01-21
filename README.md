@@ -4,8 +4,7 @@ bitshares/bitsharescheckout
 	
 + Bitshares payments gateway for E-Commerce applications. Imagine using accepting payments for orders in any fiat currency on the blockchain! You have a business and you don't want to add a custom currency such as Bitcoin or BTS? Easily integrate Bitshares Checkout using one of the well-known shopping carts and accept payments for the BitAsset equivalent of the fiat currency using the Bitshares decentralized exchange within minutes! Choose a plugin available for one of the many popular shopping-cart packages to be able to pay for orders using the BitXXX equivalent of fiat currency used to create order
   in the shopping cart website. For example, someone checks out with USD currency selected, Bitshares Checkout will automatically create an invoice to pay for the order via BitUSD and once
-  payment is recieved on the blockchain the order is processed and a signal is sent to the plugin using Bitshares Checkout that a payment has been made. Each shopping cart plugin
-  handles order processing differently so there are many examples of how this is done, take a look at userfunctions.php of each plugin (http://github.com/sidhujag). Can't find a plugin for you're shopping cart of custom web store? Create one by following the 7 easy steps below under back-end development.
+  payment is recieved on the blockchain the order is processed and a signal is sent to the plugin using Bitshares Checkout that a payment has been made. Can't find a plugin for you're shopping cart or custom web store? Create one by following the 7 easy steps below under back-end development. Hire a developer if you are not a coder, it is less than 4 hours work!
 
 + The front-end experience is consistent to any plugin leveraging this system, typically Bitshares Checkout is redirected to by the shopping cart and then it redirects the user back once a payment has been made or the order is cancelled by the user.
   
@@ -27,6 +26,8 @@ bitshares/bitsharescheckout
 2. If creating a debug build you must change index.html to load the debug version of the JS/CSS files you build above.
 	
 # Development/Debugging Back-End
+
+Each shopping cart plugin handles order processing differently and there are many examples of how this is done, take a look at userfunctions.php of each plugin (http://github.com/sidhujag).
 
 There are only a few functions that a plugin is responsible for in order to work with Bitshares Checkout, the rest of the hardwork is done for you:
 
