@@ -14,7 +14,7 @@ if(!array_key_exists('error', $response))
 	$rbimg = ROOT.'checkout/img/robohash.png';
 	if(!file_exists($img))
 	{
-	  $rbUrl = 'http://robohash.org/'.$response['accountName'].'?size=100x100';
+	  $rbUrl = 'http://robohash.org/'.$response['accountName'];
 	  $contents = file_get_contents($rbUrl);
 	  file_put_contents($rbimg, $contents);
 	}    
