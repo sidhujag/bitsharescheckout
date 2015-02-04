@@ -8,21 +8,13 @@ function debuglog($contents)
 }
 function verifyAndCompleteOpenOrder($orderArray)
 {
-	global $baseURL;
-	global $relayURL;
-	global $accountName;
-	global $rpcUser;
-	global $rpcPass;
-	global $rpcPort;
-	global $demoMode;
-	global $hashSalt;
 	$ret = array();
 	$demo = FALSE;
-	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
+	if(demoMode === "1" || demoMode === 1 || demoMode === TRUE || demoMode === "true")
 	{
 		$demo = TRUE;
 	}
-	$response = btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
+	$response = btsVerifyOpenOrders($orderArray, accountName, rpcUser, rpcPass, rpcPort, hashSalt, $demo);
 
 	if(array_key_exists('error', $response))
 	{
@@ -46,12 +38,6 @@ function verifyAndCompleteOpenOrder($orderArray)
 }
 function verifyOpenOrder($memo, $order_id)
 {
-	global $accountName;
-	global $rpcUser;
-	global $rpcPass;
-	global $rpcPort;
-	global $demoMode;
-	global $hashSalt;
 	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
@@ -60,11 +46,11 @@ function verifyOpenOrder($memo, $order_id)
 	  return $ret;
 	}
 	$demo = FALSE;
-	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
+	if(demoMode === "1" || demoMode === 1 || demoMode === TRUE || demoMode === "true")
 	{
 		$demo = TRUE;
 	}
-	return btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
+	return btsVerifyOpenOrders($orderArray, accountName, rpcUser, rpcPass, rpcPort, hashSalt, $demo);
 }
 function getOrderComplete($memo, $order_id)
 {	
@@ -114,57 +100,48 @@ function lookupOrder($memo, $order_id)
 }
 function completeOrder($memo, $order_id)
 {
-	global $baseURL;
 	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
-	  $ret['fallbackURL'] = $baseURL;
+	  $ret['fallbackURL'] = baseURL;
 	  return $ret;
 	}
 
 	if ($orderArray[0]['order_id'] !== $order_id) {
 		$ret = array();
 		$ret['error'] = 'Invalid Order ID';
-		$ret['fallbackURL'] = $baseURL;
+		$ret['fallbackURL'] = baseURL;
 		return $ret;
 	}  
 	$response = verifyAndCompleteOpenOrder($orderArray);
-	$response['fallbackURL'] = $baseURL;
+	$response['fallbackURL'] = baseURL;
 	return $response;
 }
 function cancelOrder($memo, $order_id)
 {
-	global $baseURL;
 	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
-	  $ret['fallbackURL'] = $baseURL;
+	  $ret['fallbackURL'] = baseURL;
 	  return $ret;
 	}
 
 	if ($orderArray[0]['order_id'] !== $order_id) {
 	  $ret = array();
 	  $ret['error'] = 'Invalid Order ID';
-	  $ret['fallbackURL'] = $baseURL;
+	  $ret['fallbackURL'] = baseURL;
 	  return $ret;
 	}	  
 	$response = cancelOrderUser($orderArray[0]);
-	$response['fallbackURL'] = $baseURL;
+	$response['fallbackURL'] = baseURL;
 	return $response;
 }
 function getPaymentURLFromOrder($memo, $order_id)
 {
-
-	global $accountName;
-	global $rpcUser;
-	global $rpcPass;
-	global $rpcPort;
-	global $demoMode;
-	global $hashSalt;
 	$orderArray = getOrder($memo, $order_id);
 	if(count($orderArray) <= 0)
 	{
@@ -175,11 +152,11 @@ function getPaymentURLFromOrder($memo, $order_id)
 	$order = $orderArray[0];
 	$ret = array();
 	$demo = FALSE;
-	if($demoMode === "1" || $demoMode === 1 || $demoMode === TRUE || $demoMode === "true")
+	if(demoMode === "1" || demoMode === 1 || demoMode === TRUE || demoMode === "true")
 	{
 		$demo = TRUE;
 	}	
-	$response = btsVerifyOpenOrders($orderArray, $accountName, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demo);
+	$response = btsVerifyOpenOrders($orderArray, accountName, rpcUser, rpcPass, rpcPort, hashSalt, $demo);
 
 	if(array_key_exists('error', $response))
 	{
@@ -206,7 +183,7 @@ function getPaymentURLFromOrder($memo, $order_id)
 	}
 	else
 	{	
-		$ret['url'] = btsCreatePaymentURL($accountName, $balance, $order['asset'], $memo);
+		$ret['url'] = btsCreatePaymentURL(accountName, $balance, $order['asset'], $memo);
 	}
 	return $ret;
 }
@@ -217,8 +194,7 @@ function createOrder()
 }
 function cronJob($token)
 {
-	global $cronToken;
-	if($token !== $cronToken)
+	if($token !== cronToken)
 	{
 		return 'Invalid cronjob token!';
 	}
