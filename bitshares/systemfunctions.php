@@ -42,7 +42,7 @@ function verifyOpenOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo. You may get this message if you have already paid/cancelled this order.';
 	  return $ret;
 	}
 	$demo = FALSE;
@@ -87,7 +87,7 @@ function lookupOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo. You may get this message if you have already paid/cancelled this order.';
 	  return $ret;
 	}
 
@@ -104,7 +104,7 @@ function completeOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo. You may get this message if you have already paid/cancelled this order.';
 	  $ret['fallbackURL'] = baseURL;
 	  return $ret;
 	}
@@ -125,11 +125,16 @@ function cancelOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo. You may get this message if you have already paid/cancelled this order.';
 	  $ret['fallbackURL'] = baseURL;
 	  return $ret;
 	}
-
+  $response = verifyAndCompleteOpenOrder($orderArray);
+  if(array_key_exists('url', $response))
+  {
+ 	  $response['fallbackURL'] = baseURL;
+	  return $response; 
+  }
 	if ($orderArray[0]['order_id'] !== $order_id) {
 	  $ret = array();
 	  $ret['error'] = 'Invalid Order ID';
@@ -146,7 +151,7 @@ function getPaymentURLFromOrder($memo, $order_id)
 	if(count($orderArray) <= 0)
 	{
 	  $ret = array();
-	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo';
+	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo. You may get this message if you have already paid/cancelled this order.';
 	  return $ret;
 	}
 	$order = $orderArray[0];

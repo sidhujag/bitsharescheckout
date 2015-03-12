@@ -86,6 +86,7 @@ function btsCurl($url, $post, $rpcUser, $rpcPass, $rpcPort)
 function btsCreateEHASH($account,$order_id, $price, $asset, $salt)
 {
   $string = $account.$order_id.$price.$asset.$salt;
+  $string = (string)$string;
   return substr(md5($string), 0, 18);
 }
 
@@ -140,11 +141,15 @@ function btsCreatePaymentURL($account, $amount, $asset, $memo)
 }
 function btsCurrencyToAsset($currency)
 {
-  if($currency === 'BTS')
-     return $currency;
-  if(strlen($currency) > 3 && strncmp($currency,'bit', 3) === 0)
-     return 'Bit'.substr($currency, 3);
-  return 'Bit'.$currency;
+  if($currency === "XAU")
+  {
+	$currency = "GOLD";
+  }	
+  if($currency === "XAG")
+  {
+	$currency = "SILVER";
+  }	  
+  return $currency;
 }
 /**
  * Call from your notification handler to convert $_POST data to an object containing invoice data
@@ -156,7 +161,7 @@ function btsCurrencyToAsset($currency)
 function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort, $hashSalt, $demoMode)
 {
    $retArray = array();
-   $response =  btsGetTransactions($orderList, $rpcUser, $rpcPass, $rpcPort);
+   $response =  btsGetTransactions($rpcUser, $rpcPass, $rpcPort);
    if(array_key_exists('error', $response))
    {
     return $response;
@@ -168,8 +173,10 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
       $orderTime = $order['date_added'];
       $timeStamp = 0;
       $trx_id = 0;
+      
       $orderEHASH = btsCreateEHASH($account, $order_id, $priceToPay, $asset, $hashSalt);
       $openOrderMemo = btsCreateMemo($orderEHASH);
+    
       $accumulatedAmountPaid = 0;
       
       if(!array_key_exists('result', $response))
@@ -199,16 +206,19 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
 		    {
 				continue;
 		    }
+         
             // sanity check, tx to account should match your configured account in admin settings
             if($toaccount != $account)
             {
               continue;
             }
+          
             // order memo must match this memo
             if($memo != $openOrderMemo)
             {
               continue;
             }
+           
             $amount += ($tx['amount']['amount']/$txPrecision);
             
           }
@@ -223,9 +233,9 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
           $ret['amount'] = $amount;
           $ret['total'] = $priceToPay;
           $ret['hash'] = $orderEHASH;
-          $ret['memo'] = btsCreateMemo($orderEHASH);
+          $ret['memo'] = $openOrderMemo;
           $ret['trx_id'] = $trx_id;
-          // payment within 5 units of the price, ie: price = 5 BitUSD, overpayment is when 11 BitUSD is received or more.
+          //  overpayment is when 6 units are received more than requested.
           if($accumulatedAmountPaid > ($priceToPay+5.0))
           {
             $ret['status'] = 'overpayment';
@@ -269,7 +279,7 @@ function btsValidateRPC($account, $rpcUser, $rpcPass, $rpcPort)
  *
  * @return array
  */
-function btsGetTransactions($orderList, $rpcUser, $rpcPass, $rpcPort)
+function btsGetTransactions($rpcUser, $rpcPass, $rpcPort)
 {
 
 	$post_string = '{"method": "wallet_account_transaction_history", "params": [], "id": "0"}';

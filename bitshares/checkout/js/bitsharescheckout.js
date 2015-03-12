@@ -62,10 +62,26 @@
             }
             
         }, 1000); 
-    }   
+    }  
+    function btsStartPaymentCountdown(countDownTime)
+    {
+       $('.paymentCountdown').FlipClock(countDownTime, {
+		    clockFace: 'MinuteCounter',
+		    countdown: true,
+            callbacks: {
+		        	stop: function() {
+		        	    if(!globalPaid)
+		        	    {
+		        		    btsCancelPaymentByCountdown();
+		        		}
+		        	}
+		        }		    
+	    });
+    } 
     function btsPaymentComplete()
     {
         globalPaid = true;
+        $('.paymentCountdown').stop();
         btsShowSuccess();
     }
    
@@ -87,7 +103,14 @@
         }
         btsUpdateUIScanClear();    
     }    
-      
+    function btsCancelPaymentByCountdown()
+    {
+        var n = noty({
+            text: 'This order has expired!',
+            type: 'error'
+        }); 
+        ajaxCancel("callbacks/callback_cancel.php", $('#btsForm').serialize()); 
+    }
     function btsPayClick() {
                 
         if(globalPaid)
@@ -111,11 +134,14 @@
     }  
     $("input[type='text'], input[type='number']" ).change(function(e) {
       btsUpdateOnChange();
-    });           
+    });  
+    $('.paymentCountdown').click(function (e) {
+       BootstrapDialog.warning('This is a time sensitive order. The price at which you pay for this order is locked for up to 15 minutes. You must pay and confirm this order within that time or it will be cancelled and you will be redirected back to the merchant site.'); 
+    });              
     $('#exportCSV').click(function (e) {
         if (e.preventDefault) { e.preventDefault(); } else { e.returnValue = false; }
         btsExportPaymentTableToCSV();
-    });    	
+    });   	
     $('#btsForm').submit(function(e) {
         if (e.preventDefault) { e.preventDefault(); } else { e.returnValue = false; } 
              

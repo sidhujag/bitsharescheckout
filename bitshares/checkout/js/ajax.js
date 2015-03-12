@@ -37,6 +37,20 @@
                     }
                     else 
                     {
+                        if(response.countdown_time)
+                        {
+                            var countdownTime = parseInt( response.countdown_time, 0);
+                            if(countdownTime > 0)
+                            {
+                                btsStartPaymentCountdown(countdownTime);
+                            }
+                            else
+                            {
+                                btsCancelPaymentByCountdown();
+                            }
+                        }                   
+                                           
+                                             
                         if(globalTotal === 0 && globalAsset === "")
                         {
                             globalTotal = response.total;

@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         }
       },
       vendor: {
-        src:['js/vendor/jquery.min.js', 'js/vendor/jquery.noty.packaged.min.js', 'js/vendor/jquery.localize.min.js', 'js/vendor/bootstrap.min.js', 'js/vendor/bootstrap-dialog.min.js', 'vendor/angular-cookies.min.js', 'js/vendor/waypoints.min.js', 'js/vendor/angular-animate.min.js', 'js/vendor/html5shiv.js', 'js/vendor/respond.min.js'],
+        src:['js/vendor/jquery.min.js', 'js/vendor/jquery.noty.packaged.min.js', 'js/vendor/jquery.localize.min.js', 'js/vendor/bootstrap.min.js', 'js/vendor/bootstrap-dialog.min.js', 'vendor/angular-cookies.min.js', 'js/vendor/waypoints.min.js', 'js/vendor/angular-animate.min.js', 'js/vendor/html5shiv.js', 'js/vendor/respond.min.js', 'js/vendor/flipclock.min.js'],
         dest: '<%= distdir %>/vendor.min.js'
       }
     },

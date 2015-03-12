@@ -3,6 +3,15 @@ body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
 }
+.paymentCountdown {
+    position: absolute;
+    top: 0;
+    left: 35%;
+    width: 30%;
+    text-align: center;
+    padding: 10px;
+    z-index: 100;    
+ }
 .bitshares {
   font-family: 'Open Sans', sans-serif;
   background-color: #eaeaea;
