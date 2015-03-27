@@ -96,6 +96,15 @@ function lookupOrder($memo, $order_id)
 		$ret['error'] = 'Invalid Order ID';
 		return $ret;
 	}
+  if(NULL !== acceptedAssets)
+  {
+    $acceptedAssets = explode(',', acceptedAssets);
+    if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
+	    $ret = array();
+	    $ret['error'] = 'The Currency you selected is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
+	    return $ret;
+    }
+  }
 	return $orderArray[0];
 }
 function completeOrder($memo, $order_id)
@@ -154,6 +163,15 @@ function getPaymentURLFromOrder($memo, $order_id)
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo. You may get this message if you have already paid/cancelled this order.';
 	  return $ret;
 	}
+  if(NULL !== acceptedAssets)
+  {
+    $acceptedAssets = explode(',', acceptedAssets);
+    if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
+	    $ret = array();
+	    $ret['error'] = 'The Currency you selected is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
+	    return $ret;
+    }
+  }  
 	$order = $orderArray[0];
 	$ret = array();
 	$demo = FALSE;
