@@ -262,6 +262,48 @@ function btsVerifyOpenOrders($orderList, $account, $rpcUser, $rpcPass, $rpcPort,
    return $retArray;
 
 }
+function btsTodaysOpenPriceWithFeed($assets, $rpcUser, $rpcPass, $rpcPort)
+{
+  $ret = array();
+  $defTimezone = date_default_timezone_get();
+  date_default_timezone_set("UTC");
+  $dateNowObj = new DateTime(null);
+  date_default_timezone_set($defTimezone) ;  
+  foreach ($assets as $asset) {
+    $post_string = '{"method": "blockchain_get_feeds_for_asset", "params": ["'.$asset.'"], "id": "0"}';
+    $response = btsCurl('http://127.0.0.1/rpc', $post_string, $rpcUser, $rpcPass, $rpcPort);  
+     if(array_key_exists('error', $response) || !array_key_exists('result', $response))
+     {
+      continue;
+     }    
+     foreach ($response['result'] as $delegateFeed) {
+      if($delegateFeed['delegate_name'] === 'MARKET')
+      {
+        $medianprice = $delegateFeed['median_price'];
+        break;
+      }
+     }
+    $post_string = '{"method": "blockchain_market_price_history", "params": ["'.$asset.'","BTS",'.$dateNowObj->format("Ymd")."T0".',0,"each_day"], "id": "0"}';
+	  $response = btsCurl('http://127.0.0.1/rpc', $post_string, $rpcUser, $rpcPass, $rpcPort);  
+     if(array_key_exists('error', $response) || !array_key_exists('result', $response))
+     {
+      continue;
+     }
+     $openingprice = $response['result'][0]['opening_price'];
+     if(!isset($medianprice))
+     {
+      continue;
+     }
+     $newData = array(
+          "asset" => $asset,
+          "opening_price" => $openingprice,
+          "median_price" => $medianprice
+      );
+
+     array_push($ret, $newData);
+  }
+  return $ret;
+}
 function btsValidateRPC($account, $rpcUser, $rpcPass, $rpcPort)
 {
 

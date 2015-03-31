@@ -1,0 +1,459 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,100);
+
+
+
+div.bitsharesticker{
+
+  width: 100%;
+  display: block;
+  font-family: "Roboto", Helvetica, Arial;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-container{
+
+
+position: relative;
+margin: 0 30px;
+height: 50px;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-container-left{
+
+	width: 30px;
+
+
+	height: 50px;
+
+
+	display: block;
+
+
+	position: absolute;
+
+
+	left: -30px;
+
+
+	top: 0;
+
+
+	z-index: 2;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-container-right{
+
+
+	width: 30px;
+
+
+	display: block;
+
+
+	height: 50px;
+
+
+	position: absolute;
+
+
+	right: -30px;
+
+
+	top: 0;
+
+
+	z-index: 2;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-container-content{
+
+
+	position: relative;
+
+
+	z-index: 3;
+
+
+	line-height: 30px;
+
+
+	padding: 10px 0;
+
+
+	margin: 0 0;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-username{
+
+
+	position: relative;
+
+
+	float: left;
+
+
+	z-index: 100;
+
+
+	padding: 0 5px;
+
+
+	color: #FFFFFF;
+
+
+	font-size: 14px;
+
+
+	letter-spacing: 1px;
+
+
+	text-shadow: 0 -1px 1px #000000;
+
+
+	margin: 0 0 0 -16px;
+
+
+}
+
+@media (max-width: 580px) {
+  div.bitsharesticker-username {
+    display: none; } }
+
+
+div.bitsharesticker-username a{
+
+
+	color: #EAC12D;
+
+
+	text-decoration: none;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-username a:hover{
+
+
+	color: #FFF;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-feedbox{
+
+
+	overflow: hidden;
+
+
+	position: relative;
+
+
+	z-index: 100;
+
+
+	margin: 0;
+
+
+	padding: 0;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+div.bitsharesticker-feedbox-content{
+
+
+	display: block;
+
+
+	margin: 0 3px 0 2px;
+
+
+	height: 30px;
+
+
+	position: relative;
+
+
+	z-index: 200;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-overflow-container{
+
+
+	white-space: nowrap;
+
+
+	overflow: hidden;
+
+
+	position: relative;
+
+
+	font-size: 12px;
+
+
+	display: block;
+
+
+	width: 100%;
+
+
+}
+
+
+
+
+
+ul.bitsharesticker-feeds-list{
+
+
+	position: relative;
+
+
+	list-style: none;
+
+
+	display: inline;
+
+
+	margin: 0;
+
+
+	padding: 0;
+
+
+}
+
+
+
+
+
+ul.bitsharesticker-feeds-list li{
+
+text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+	display: inline;
+   font-weight: 300;
+
+	margin: 0 10px;
+
+
+	list-style: none;
+
+
+	padding: 0;
+
+
+	white-space: nowrap;
+
+
+}
+
+
+
+
+
+ul.bitsharesticker-feeds-list li a{
+
+
+	color: #FFF;
+
+
+}
+
+
+
+
+
+ul.bitsharesticker-feeds-list li span.bitsharesticker-date{
+
+
+	font-size: 9px;
+
+
+	font-style: italic;
+
+
+	color: #FFF;
+
+
+	position: relative;
+
+
+	bottom: 1px;
+
+
+}
+
+
+
+
+
+ul.bitsharesticker-feeds-list li span.bitsharesticker-date a{
+
+
+	color: inherit !important;
+
+
+	margin-right: 5px;
+
+
+	text-decoration: none !important;
+
+text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+	border-bottom: 1px solid #AAAAAA;
+
+
+}
+
+
+
+/* BitAssets Currencies - Colors */
+
+li.bitsharesticker-feed {
+ 	  color: #fcf8f9;
+   opacity: 0.7;
+   letter-spacing: 1px;
+   font-weight: 500;
+}
+
+
+
+/* UP - color */
+
+.up {
+  color: #7ED321;
+  font-weight: 100;
+}
+
+.up .change {
+  font-weight: 100;
+}
+
+.up  .pct {
+  font-weight: 100;
+}
+
+
+
+/* DOWN - color */
+
+.down, .down .change, .down  .pct {
+  color: #DF565B;
+  font-weight: 200;
+}
+
+.down .change {
+   font-weight: 100;
+}
+
+.down  .pct {
+   font-weight: 100;
+}
+
+
+
+
+/*---/ BitAssets Currencies End */
+
+
+
+
+
+div.bitsharesticker-bitshares-link{
+
+
+	position: relative;
+
+
+	z-index: 200;
+
+
+	float: right;
+
+
+	margin: 0 -16px 0 0;
+
+
+}
+
+
+
+
+
+div.bitsharesticker-bitshares-link a{
+
+
+	background: url(img/bitshares-logo.png) no-repeat center center;
+
+
+	margin-top:-10px;
+
+
+	overflow: hidden;
+
+
+	text-indent: -9999px;
+
+
+	width: 31px;
+
+
+	height: 50px;
+
+
+	display: block;
+
+
+}

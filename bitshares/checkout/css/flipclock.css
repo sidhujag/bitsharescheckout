@@ -37,8 +37,8 @@
   *zoom: 1; }
 
 /* Main */
-.flip-clock-wrapper {
-  font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+.flip-clock-wrapper 
+{
   -webkit-user-select: none; }
 
 .flip-clock-meridium {
@@ -51,8 +51,7 @@
 .flip-clock-wrapper {
   text-align: center;
   position: relative;
-  width: 100%;
-  margin: 1em;
+
 }
 
 .flip-clock-wrapper:before,

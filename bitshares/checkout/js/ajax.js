@@ -49,7 +49,10 @@
                                 btsCancelPaymentByCountdown();
                             }
                         }                   
-                                           
+                        if(response.primaryTickerAssets && response.secondaryTickerAssets)
+                        {
+                            btsStartTicker(response.primaryTickerAssets, response.secondaryTickerAssets);
+                        }                                          
                                              
                         if(globalTotal === 0 && globalAsset === "")
                         {

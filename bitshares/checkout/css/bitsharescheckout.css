@@ -3,15 +3,19 @@ body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
 }
-.paymentCountdown {
-    position: absolute;
-    top: 0;
-    left: 35%;
-    width: 30%;
-    text-align: center;
-    padding: 10px;
-    z-index: 100;    
- }
+.clock {
+width: 460px;
+height: 116px;
+margin: 0 auto;
+}
+.bannerTicker {
+background: black;
+max-height: 100%;
+}
+.bannerCountdown {
+background: black;
+max-height: 100%;
+}
 .bitshares {
   font-family: 'Open Sans', sans-serif;
   background-color: #eaeaea;
@@ -67,13 +71,6 @@ body {
 }
 .bitshares .wrap {
   width: 100%;
-}
-.bitshares .bitshareslogo 
-{
-	background-image:url("img/bitsharescheckout.png");
-	background-repeat: no-repeat;
-	background-position: center;
-	height:71px;
 }
 .bitshares .top-buffer {
   margin-top: 20px;

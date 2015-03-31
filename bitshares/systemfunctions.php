@@ -6,6 +6,12 @@ function debuglog($contents)
 {
 	error_log($contents);
 }
+function getFeedPrices()
+{
+  $assets = explode(',', $_REQUEST['assets']);
+  $priceData = btsTodaysOpenPriceWithFeed($assets, rpcUser, rpcPass, rpcPort);
+  return $priceData;
+}
 function verifyAndCompleteOpenOrder($orderArray)
 {
 	$ret = array();
@@ -98,12 +104,32 @@ function lookupOrder($memo, $order_id)
 	}
   if(NULL !== acceptedAssets)
   {
-    $acceptedAssets = explode(',', acceptedAssets);
+    $acceptedAssets = explode(',', preg_replace('/\s+/', '', acceptedAssets));
     if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
 	    $ret = array();
 	    $ret['error'] = 'The Currency you selected is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
 	    return $ret;
     }
+  }
+  if(orderExpiresIn15Minutes === "1" || orderExpiresIn15Minutes === 1 || orderExpiresIn15Minutes === 'TRUE' || orderExpiresIn15Minutes === TRUE || orderExpiresIn15Minutes === "true")
+  {
+    $defTimezone = date_default_timezone_get();
+    date_default_timezone_set("UTC");
+    $dateNowObj = new DateTime(null);
+    $dateNow = $dateNowObj->getTimestamp();
+    $dateAdd = new DateTime($orderArray[0]['date_added']);
+    date_default_timezone_set($defTimezone) ; 	
+    if($dateAdd)
+    {
+      $dateExpiry = $dateAdd->getTimestamp() - date('Z') + 15*60; 
+      $orderArray[0]['countdown_time'] = ($dateExpiry  - $dateNow);
+    } 
+  }
+        
+  if(NULL !== primaryTickerAssets && NULL !== secondaryTickerAssets)
+  { 
+    $orderArray[0]['primaryTickerAssets'] = preg_replace('/\s+/', '', primaryTickerAssets);
+    $orderArray[0]['secondaryTickerAssets'] = preg_replace('/\s+/', '', secondaryTickerAssets);
   }
 	return $orderArray[0];
 }
@@ -165,7 +191,7 @@ function getPaymentURLFromOrder($memo, $order_id)
 	}
   if(NULL !== acceptedAssets)
   {
-    $acceptedAssets = explode(',', acceptedAssets);
+    $acceptedAssets = explode(',', preg_replace('/\s+/', '', acceptedAssets));
     if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
 	    $ret = array();
 	    $ret['error'] = 'The Currency you selected is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;

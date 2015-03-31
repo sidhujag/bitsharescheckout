@@ -11,6 +11,16 @@
             }
         }
     }
+    function btsStartTicker(primaryAssets, secondaryAssets)
+    {
+      $('.bitsharesticker').bitsharesticker({
+          title : 'Bitshares Checkout Live Ticker',
+          source: 'callbacks/callback_getfeedprices.php',
+          currencyPrimary: primaryAssets,
+          currencySecondary: secondaryAssets
+      });
+    
+    }
     function btsStartPaymentTracker(serializedData)
     {
         if(globalScanInProgress)
