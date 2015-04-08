@@ -16,6 +16,7 @@
       $('.bitsharesticker').bitsharesticker({
           title : 'Bitshares Checkout Live Ticker',
           source: 'callbacks/callback_getfeedprices.php',
+          currencyTemplateSource: 'Common-Currency.json',
           currencyPrimary: primaryAssets,
           currencySecondary: secondaryAssets
       });
@@ -34,8 +35,9 @@
         globalPaymentTimer = setInterval(function() {
             ajaxScanChain(serializedData);  
         }, 10000); 
-    }    
-    $( document ).ready(function() {      
+    }
+    function btsStart()
+    {
         var accountName = GetURLParameter('accountName');
         var order_id = GetURLParameter('order_id');
         var memo= GetURLParameter('memo');
@@ -50,9 +52,8 @@
         $('#socialGoogle').attr('href', "https://plus.google.com/share?url="+url );
         $('#socialFacebook').attr('href', "http://www.facebook.com/sharer.php?m2w&s=100&p[url]="+url+"&p[images][0]=http://bitshares.org/wp-content/uploads/2014/11/bts-logo-white.png&p[title]=Bitshares payment gateway&p[summary]="+subject);
         $('#socialTwitter').attr('href', "http://twitter.com/intent/tweet?source=sharethiscom&text="+subject+"&url="+url );
-        ajaxLookup($('#btsForm').serialize());
-       
-    }); 
+        ajaxLookup($('#btsForm').serialize());    
+    }    
     function btsShowSuccess()
     {
         globalRedirectDialog.open();  

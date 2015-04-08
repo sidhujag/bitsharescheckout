@@ -289,7 +289,14 @@ function btsTodaysOpenPriceWithFeed($assets, $rpcUser, $rpcPass, $rpcPort)
      {
       continue;
      }
-     $openingprice = $response['result'][0]['opening_price'];
+     if(!isset( $response['result']) || !isset($response['result'][0]) || !isset($response['result'][0]['opening_price']))
+     {
+      $openingprice = $medianprice;
+     }
+     else
+     {
+      $openingprice = $response['result'][0]['opening_price'];
+     }
      if(!isset($medianprice))
      {
       continue;

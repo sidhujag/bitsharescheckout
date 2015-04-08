@@ -107,7 +107,7 @@ function lookupOrder($memo, $order_id)
     $acceptedAssets = explode(',', preg_replace('/\s+/', '', acceptedAssets));
     if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
 	    $ret = array();
-	    $ret['error'] = 'The Currency you selected is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
+	    $ret['error'] = 'The Currency you selected ('.$orderArray[0]['asset'].') is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
 	    return $ret;
     }
   }
@@ -194,7 +194,7 @@ function getPaymentURLFromOrder($memo, $order_id)
     $acceptedAssets = explode(',', preg_replace('/\s+/', '', acceptedAssets));
     if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
 	    $ret = array();
-	    $ret['error'] = 'The Currency you selected is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
+	    $ret['error'] = 'The Currency you selected ('.$orderArray[0]['asset'].') is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
 	    return $ret;
     }
   }  

@@ -5,10 +5,16 @@
 	==============================================================================
 	Basic Usage
 	==============================================================================
-		jQuery('#bitsharesticker').bitsharesticker({
-			username : 'username'
-		});
-	
+      jQuery('.bitsharesticker').bitsharesticker({
+          title : 'Bitshares Checkout Live Ticker',
+          source: 'bitshares/checkout/callbacks/callback_getfeedprices.php',
+          currencyTemplateSource: 'bitshares/checkout/Common-Currency.json',
+          currencyPrimary: primaryAssets,
+          currencySecondary: secondaryAssets
+      });
+      example for currencies:
+        primaryAssets = 'GOLD, SILVER, BTC';
+        secondaryAssets = 'USD, EUR, GBP';
 	*For additional documentation please reference github http://github.com/sidhujag/bitshares-ticker
 */
 (function (jQuery) {
@@ -81,7 +87,7 @@
 		function updater(){
             jQuery.ajax({
                 url: options.source + '?assets=' + currencyUniqueList,
-                type: 'post',
+                type: 'get',
                 dataType: 'json',
                 timeout: 15000, 
                 error:function(jqXHR, textStatus, errorThrown){
@@ -187,6 +193,7 @@
 	        var d = new Date();
 	        jQuery('#date').text(d.toString());
 	        jQuery.each( currencyMap, function( key, value ) {
+	          var divKey =  value.primary + value.secondary;
               var isoCodeMap = currencyIsoCodes[value.secondary];
               var precision = 2;
               if(isoCodeMap)
@@ -211,7 +218,7 @@
              
               var median_priceRounded = round10(median_price, precision);
               
-              var medianRounded = round10(parseFloat(jQuery(key + ' #value').text()), precision);
+              var medianRounded = round10(parseFloat(jQuery('#'+divKey+' #value').text()), precision);
               if(medianRounded != median_priceRounded)
               {
                   var open_price = 0;
@@ -235,7 +242,7 @@
                   {
                     symbol = isoCodeMap.symbol;
                   }
-                  var build = value.primary + "/" + value.secondary + '&nsbp;' + symbol + '<b id="value">'+median_priceRounded+'</b>';
+                  var build = value.primary + "/" + value.secondary + ' ' + symbol + '<b id="value">'+median_priceRounded+'</b>';
                   if(difference > 0)
                   {
                     build += '<b class="up">&nbsp;<b class="change">&nbsp;'+round10(difference, precision)+ '</b><b class="pct">&nbsp;(' + pct + '%)</b>&nbsp;<i class="fa fa-caret-up"></i></b>';
@@ -244,15 +251,16 @@
                   {
                     build += '<b class="down">&nbsp;<b class="change">&nbsp;'+round10(difference, precision)+ '</b><b class="pct">&nbsp;(' + pct + '%)</b>&nbsp;<i class="fa fa-caret-down"></i></b>';
                   }
-                  jQuery(key).html(build);
+                  build += '&nbsp;&nbsp;';
+                  jQuery('#'+divKey).html(build);
               }
 	        });
 	    }
 	    function getCurrencyCodes()
 	    {
             jQuery.ajax({
-                url: "Common-Currency.json",
-                type: 'post',
+                url: options.currencyTemplateSource,
+                type: 'get',
                 dataType: 'json',
                 timeout: 15000, 
                  error:function(jqXHR, textStatus, errorThrown){
@@ -356,14 +364,14 @@
 	};
 	jQuery.fn.bitsharesticker.defaults = {
 		title: '',
-		normalRate: 10,
+		normalRate: 15,
 		hoverRate: 100,
-		startOffScreen: true,
 		tickerOnly: false,
 		source: '',
+		currencyTemplateSource: '',
 		currencyPrimary: '',
 		currencySecondary: '',
-		updateInterval: 3
+		updateInterval: 300
 
 	};
 })(jQuery);
