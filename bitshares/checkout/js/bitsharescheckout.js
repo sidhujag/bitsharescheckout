@@ -43,6 +43,7 @@
         var memo= GetURLParameter('memo');
         $('#accountName').val(accountName);
         $('#accountNameDisplay').text(accountName);
+        $('#accountNameDisplay').attr('href', 'bts:' + accountName);
         $('#order_id').val(order_id);
         $('#memo').val(memo);
         $('#payTo').val(accountName);

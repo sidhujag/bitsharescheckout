@@ -102,10 +102,10 @@ function lookupOrder($memo, $order_id)
 		$ret['error'] = 'Invalid Order ID';
 		return $ret;
 	}
-  if(NULL !== acceptedAssets)
+  if(defined('acceptedAssets'))
   {
-    $acceptedAssets = explode(',', preg_replace('/\s+/', '', acceptedAssets));
-    if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
+    $accepted = explode(',', preg_replace('/\s+/', '', acceptedAssets));
+    if (!in_array($orderArray[0]['asset'], $accepted)) {
 	    $ret = array();
 	    $ret['error'] = 'The Currency you selected ('.$orderArray[0]['asset'].') is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
 	    return $ret;
@@ -189,10 +189,10 @@ function getPaymentURLFromOrder($memo, $order_id)
 	  $ret['error'] = 'Could not find this order in the system, please review the Order ID and Memo. You may get this message if you have already paid/cancelled this order.';
 	  return $ret;
 	}
-  if(NULL !== acceptedAssets)
+ if(defined('acceptedAssets'))
   {
-    $acceptedAssets = explode(',', preg_replace('/\s+/', '', acceptedAssets));
-    if (!in_array($orderArray[0]['asset'], $acceptedAssets)) {
+    $accepted = explode(',', preg_replace('/\s+/', '', acceptedAssets));
+    if (!in_array($orderArray[0]['asset'], $accepted)) {
 	    $ret = array();
 	    $ret['error'] = 'The Currency you selected ('.$orderArray[0]['asset'].') is not accepted by this vendor, please click on cancel to go back to the vendor checkout and try again. Accepted currencies are: ' . acceptedAssets;
 	    return $ret;
