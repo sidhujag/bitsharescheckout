@@ -126,7 +126,7 @@ function lookupOrder($memo, $order_id)
     } 
   }
         
-  if(NULL !== primaryTickerAssets && NULL !== secondaryTickerAssets)
+  if(defined(primaryTickerAssets) && defined(secondaryTickerAssets))
   { 
     $orderArray[0]['primaryTickerAssets'] = preg_replace('/\s+/', '', primaryTickerAssets);
     $orderArray[0]['secondaryTickerAssets'] = preg_replace('/\s+/', '', secondaryTickerAssets);
